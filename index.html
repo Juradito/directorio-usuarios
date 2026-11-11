@@ -2212,7 +2212,7 @@
         if (cqCargado || cqCargando) return;
         cqCargando = true;
         cqContador.textContent = '';
-        cqLista.innerHTML = '<div class="cq-estado">⏳ Cargando usuarios...</div>';
+        cqLista.innerHTML = '<div class="cq-estado">⏳ Cargando la comunidad de lectores…<br><small>Espera unos segundos, estamos consultando la API.</small></div>';
         try {
           const res = await fetch(`${API_URL}/users`);
           if (!res.ok) throw new Error('HTTP ' + res.status);
@@ -2223,7 +2223,7 @@
           cqRenderLista();
         } catch (err) {
           console.error('Error cargando usuarios:', err);
-          cqLista.innerHTML = `<div class="cq-estado cq-estado--error">⚠️ No se pudieron cargar los usuarios. Revisa tu conexión e inténtalo de nuevo.<br><button type="button" class="btn btn-dorado" id="cq-reintentar-usuarios">Reintentar</button></div>`;
+          cqLista.innerHTML = `<div class="cq-estado cq-estado--error">⚠️ No pudimos cargar la comunidad de lectores.<br><small>Revisa tu conexión a Internet y pulsa «Reintentar».</small><br><button type="button" class="btn btn-dorado" id="cq-reintentar-usuarios">Reintentar</button></div>`;
         } finally {
           cqCargando = false;
         }
@@ -2255,7 +2255,7 @@
         cqControlador = new AbortController();
         const { signal } = cqControlador;
         const zona = document.getElementById('cq-posts');
-        zona.innerHTML = '<div class="cq-estado">⏳ Cargando publicaciones...</div>';
+        zona.innerHTML = '<div class="cq-estado">⏳ Cargando las publicaciones de este lector…<br><small>Puede tardar un momento según tu conexión.</small></div>';
 
         try {
           const res = await fetch(`${API_URL}/posts?userId=${encodeURIComponent(id)}`, { signal });
@@ -2276,7 +2276,7 @@
         } catch (err) {
           if (err.name === 'AbortError') return; // fue cancelada a propósito, no es un error
           console.error('Error cargando publicaciones:', err);
-          zona.innerHTML = `<div class="cq-estado cq-estado--error">⚠️ No se pudieron cargar las publicaciones. Revisa tu conexión e inténtalo de nuevo.<br><button type="button" class="btn btn-dorado" data-reintentar-posts="${id}">Reintentar</button></div>`;
+          zona.innerHTML = `<div class="cq-estado cq-estado--error">⚠️ No pudimos cargar las publicaciones de este lector.<br><small>Revisa tu conexión a Internet y pulsa «Reintentar».</small><br><button type="button" class="btn btn-dorado" data-reintentar-posts="${id}">Reintentar</button></div>`;
         }
       };
 

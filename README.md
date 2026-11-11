@@ -1,6 +1,6 @@
 # Librería John & Letras
 
-**Autor:** Jhon Alexander Jurado Hurtado
+**Autor:** John Alexander Jurado
 **Materia:** Programación Web VII — Trabajo individual
 
 ## Propósito
@@ -51,4 +51,5 @@ Luego abre <http://localhost:8099/index.html>.
 
 ## Sitio publicado
 
-Enlace de GitHub Pages: _(se agregará al terminar el despliegue)_
+- **Repositorio:** <https://github.com/juradito/directorio-usuarios>
+- **GitHub Pages:** <https://juradito.github.io/directorio-usuarios/>
