@@ -1,0 +1,2362 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Librería John & Letras — Historias que inspiran, conocimientos que transforman. Libros, papelería, cultura y un espacio cálido para leer.">
+  <title>Librería John &amp; Letras — Historias que inspiran</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23241811'/><g fill='none' stroke='%23C19A5B' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'><path d='M50 32v38'/><path d='M45 32h-8a8 8 0 0 0 0 16h8'/><path d='M55 32h8a8 8 0 0 1 0 16h-8'/></g></svg>">    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+    :root {
+      --cafe-900: #241811;
+      --cafe-800: #33241A;
+      --cafe-700: #4A3426;
+      --cafe-600: #6B4F38;
+      --crema:    #EFE4D2;
+      --blanco-calido: #FBF7EF;
+      --verde:    #2F4A3C;
+      --verde-claro: #3E5C4B;
+      --dorado:   #C19A5B;
+      --dorado-claro: #E2C288;
+
+      --texto:       #3B2E23;
+      --texto-suave: #83705C;
+
+      --sombra-suave:  0 4px 16px rgba(51, 36, 26, .07);
+      --sombra-fuerte: 0 12px 32px rgba(36, 24, 17, .12);
+
+      --radio: 18px;
+      --transicion: .35s cubic-bezier(.25, .7, .3, 1);
+
+      --fuente-titulos: 'Fraunces', Georgia, 'Times New Roman', serif;
+      --fuente-texto: 'Inter', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 86px;
+    }
+
+    body {
+      font-family: var(--fuente-texto);
+      color: var(--texto);
+      background: var(--blanco-calido);
+      line-height: 1.7;
+      overflow-x: clip;
+    }
+
+    img, svg { display: block; max-width: 100%; }
+
+    a { color: inherit; }
+
+    ::selection { background: var(--dorado); color: var(--cafe-900); }
+
+    :focus-visible {
+      outline: 2px solid var(--dorado);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    .saltar {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      background: var(--cafe-900);
+      color: var(--blanco-calido);
+      padding: .8rem 1.4rem;
+      border-radius: 0 0 12px 0;
+      z-index: 200;
+    }
+    .saltar:focus { left: 0; }
+
+    .contenedor {
+      width: min(1150px, 100%);
+      margin-inline: auto;
+      padding-inline: clamp(1.2rem, 4vw, 2.5rem);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .65s ease, transform .65s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    .d1 { transition-delay: .1s; }
+    .d2 { transition-delay: .2s; }
+    .d3 { transition-delay: .3s; }
+    .d4 { transition-delay: .4s; }
+    .d5 { transition-delay: .5s; }
+
+    .entrada {
+      opacity: 0;
+      animation: aparecer 1s cubic-bezier(.22, .7, .3, 1) forwards;
+      animation-delay: var(--d, 0s);
+    }
+    @keyframes aparecer {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    .cabecera {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(251, 247, 239, .92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(193, 154, 91, .25);
+      transition: box-shadow var(--transicion);
+    }
+    .cabecera.desplazada { box-shadow: var(--sombra-suave); }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+
+    .logo {
+      font-family: var(--fuente-titulos);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--cafe-900);
+      text-decoration: none;
+      letter-spacing: .02em;
+    }
+    .logo span { color: var(--dorado); font-style: italic; }
+
+    .menu {
+      display: flex;
+      align-items: center;
+      gap: 2.2rem;
+      list-style: none;
+    }
+
+    .menu a {
+      position: relative;
+      text-decoration: none;
+      font-size: .98rem;
+      font-weight: 500;
+      color: var(--texto);
+      padding: .4rem 0;
+      transition: color var(--transicion);
+    }
+    .menu a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--dorado);
+      border-radius: 99px;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--transicion);
+    }
+    .menu a:hover,
+    .menu a.activo { color: var(--cafe-900); }
+    .menu a:hover::after,
+    .menu a.activo::after { transform: scaleX(1); }
+
+    .hamburguesa {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+      width: 46px;
+      height: 46px;
+      padding: 10px;
+      background: transparent;
+      border: 1px solid rgba(193, 154, 91, .4);
+      border-radius: 12px;
+      cursor: pointer;
+    }
+    .hamburguesa span {
+      display: block;
+      height: 2px;
+      width: 100%;
+      background: var(--cafe-700);
+      border-radius: 99px;
+      transition: transform var(--transicion), opacity var(--transicion);
+    }
+    .hamburguesa.abierto span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburguesa.abierto span:nth-child(2) { opacity: 0; }
+    .hamburguesa.abierto span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    .hero {
+      position: relative;
+      min-height: clamp(560px, 94vh, 940px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      color: var(--blanco-calido);
+    }
+
+    .hero-fondo {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 118%;
+      will-change: transform;
+    }
+    .hero-fondo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 40%;
+      pointer-events: none;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg,
+        rgba(26, 16, 10, .58) 0%,
+        rgba(26, 16, 10, .38) 42%,
+        rgba(26, 16, 10, .82) 100%);
+      z-index: 1;
+    }
+
+    .hero-contenido {
+      position: relative;
+      z-index: 2;
+      max-width: 760px;
+      padding: 6rem 1.5rem 5rem;
+    }
+
+    .hero .sobretitulo { color: var(--dorado-claro); }
+
+    .hero h1 {
+      font-family: var(--fuente-titulos);
+      font-size: clamp(2.6rem, 7vw, 4.6rem);
+      font-weight: 700;
+      line-height: 1.12;
+      margin: .6rem 0 1rem;
+      text-wrap: balance;
+    }
+    .hero h1 em { color: var(--dorado-claro); }
+
+    .hero .eslogan {
+      font-family: var(--fuente-titulos);
+      font-style: italic;
+      font-size: clamp(1.1rem, 2.6vw, 1.45rem);
+      color: #F3E9D6;
+      margin-bottom: 1.1rem;
+    }
+
+    .hero .descripcion {
+      font-size: clamp(1rem, 2.2vw, 1.13rem);
+      color: rgba(251, 247, 239, .88);
+      max-width: 620px;
+      margin: 0 auto 2.4rem;
+    }
+
+    .hero-botones {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .indicador {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      font-size: .72rem;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: rgba(251, 247, 239, .75);
+      text-decoration: none;
+    }
+    .indicador::after {
+      content: "▾";
+      display: block;
+      text-align: center;
+      font-size: 1rem;
+      animation: rebotar 1.8s ease-in-out infinite;
+    }
+    @keyframes rebotar {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(6px); }
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      padding: .95rem 2.1rem;
+      min-height: 48px;
+      border: none;
+      border-radius: 999px;
+      font-family: var(--fuente-texto);
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: .02em;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform var(--transicion), box-shadow var(--transicion),
+                  background var(--transicion), color var(--transicion);
+    }
+    .btn:active { transform: scale(.97); }
+
+    .btn-dorado {
+      background: var(--dorado);
+      color: var(--cafe-900);
+      box-shadow: 0 8px 22px rgba(193, 154, 91, .35);
+    }
+    .btn-dorado:hover {
+      background: var(--dorado-claro);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(193, 154, 91, .3);
+    }
+
+    .btn-borde {
+      background: transparent;
+      color: var(--blanco-calido);
+      border: 1.5px solid rgba(251, 247, 239, .65);
+    }
+    .btn-borde:hover {
+      background: rgba(251, 247, 239, .14);
+      transform: translateY(-1px);
+    }
+
+    .btn-verde {
+      background: var(--verde);
+      color: var(--blanco-calido);
+      box-shadow: 0 8px 22px rgba(47, 74, 60, .3);
+    }
+    .btn-verde:hover {
+      background: var(--verde-claro);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(47, 74, 60, .3);
+    }
+
+    section { padding: clamp(3rem, 6vw, 4.75rem) 0; }
+
+    .cabecera-seccion { text-align: center; margin-bottom: clamp(2.5rem, 6vw, 4rem); }
+
+    .sobretitulo {
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--dorado);
+      margin-bottom: .7rem;
+    }
+
+    h2 {
+      font-family: var(--fuente-titulos);
+      font-size: clamp(1.9rem, 3.6vw, 2.7rem);
+      font-weight: 700;
+      color: var(--cafe-900);
+      line-height: 1.2;
+      text-wrap: balance;
+    }
+
+    .ornamento {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .9rem;
+      margin-top: 1.2rem;
+      color: var(--dorado);
+    }
+    .ornamento::before,
+    .ornamento::after {
+      content: "";
+      width: 68px;
+      height: 1px;
+      background: currentColor;
+      opacity: .55;
+    }
+
+    .subtitulo-seccion {
+      color: var(--texto-suave);
+      max-width: 560px;
+      margin: 1rem auto 0;
+    }
+
+    .franja {
+      background: var(--crema);
+      border-block: 1px solid rgba(74, 52, 38, .08);
+      padding: .85rem 0;
+    }
+    .franja-lista {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: clamp(1.5rem, 4vw, 3.5rem);
+      list-style: none;
+    }
+    .franja-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: .7rem;
+    }
+    /* Mini-portada con foto real (misma proporción 2:3 que el resto de la página) */
+    .franja-icono {
+      display: block;
+      width: 92px;
+      aspect-ratio: 2 / 3;
+      object-fit: cover;
+      border-radius: 8px;
+      border-bottom: 3px solid var(--dorado);
+      background: var(--crema);
+      box-shadow: 0 10px 22px rgba(36, 24, 17, .22);
+      transition: transform var(--transicion), box-shadow var(--transicion);
+    }
+    .franja-item:hover .franja-icono {
+      transform: translateY(-4px) rotate(-2deg);
+      box-shadow: 0 16px 30px rgba(36, 24, 17, .3);
+    }
+    .franja-item strong {
+      display: block;
+      font-family: var(--fuente-titulos);
+      font-size: 1.08rem;
+      color: var(--cafe-800);
+    }
+    .franja-item small { color: var(--texto-suave); font-size: .85rem; }
+
+    .quienes { background: var(--blanco-calido); }
+
+    .quienes-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: clamp(2.5rem, 6vw, 5rem);
+      align-items: center;
+    }
+
+    .quienes-imagen {
+      position: relative;
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: var(--sombra-fuerte);
+    }
+    .quienes-imagen img {
+      width: 100%;
+      height: 100%;
+      aspect-ratio: 4 / 3.1;
+      object-fit: cover;
+    }
+
+    .quienes-imagen .etiqueta {
+      position: absolute;
+      left: 16px;
+      bottom: 16px;
+      background: var(--dorado);
+      color: var(--cafe-900);
+      font-size: .8rem;
+      font-weight: 600;
+      padding: .45rem 1rem;
+      border-radius: 999px;
+      box-shadow: var(--sombra-suave);
+    }
+
+    .quienes-texto h2 { text-align: left; }
+    .quienes-texto > p {
+      color: var(--texto-suave);
+      margin: 1.3rem 0 2.2rem;
+    }
+
+        /* Las 3 miniaturas de "Quiénes somos" rediseñadas como miniaturas tipo portada */
+    .rasgos {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .rasgo {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      background: var(--blanco-calido);
+      border: 1px solid rgba(193, 154, 91, .3);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: var(--sombra-suave);
+      transition: transform var(--transicion), box-shadow var(--transicion), border-color var(--transicion);
+    }
+    .rasgo:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--sombra-fuerte);
+      border-color: rgba(193, 154, 91, .5);
+    }
+    @media (max-width: 560px) {
+      .rasgos { grid-template-columns: 1fr; }
+    }
+    .rasgo-icono {
+      display: block;
+      width: 100%;
+      aspect-ratio: 2 / 3;
+      object-fit: cover;
+      border-bottom: 3px solid var(--dorado);
+      background: var(--crema);
+    }
+    .rasgo-cuerpo { padding: .65rem .8rem .8rem; }
+    .rasgo h3 {
+      font-family: var(--fuente-titulos);
+      font-size: 1.05rem;
+      color: var(--cafe-800);
+      margin-bottom: .3rem;
+    }
+    .rasgo p { font-size: .87rem; line-height: 1.5; color: var(--texto-suave); }
+
+    .firma {
+      margin-top: 2rem;
+      font-family: var(--fuente-titulos);
+      font-style: italic;
+      color: var(--dorado);
+    }
+
+    .servicios { background: var(--crema); }
+
+    .servicios-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 1.6rem;
+    }
+
+    .tarjeta {
+      position: relative;
+      overflow: hidden;
+      background: var(--blanco-calido);
+      border: 1px solid rgba(193, 154, 91, .28);
+      border-radius: var(--radio);
+      padding: 1.25rem 1.2rem 1.3rem;
+      text-align: center;
+      box-shadow: var(--sombra-suave);
+      transition: transform var(--transicion), box-shadow var(--transicion),
+                  border-color var(--transicion);
+    }
+    .tarjeta::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 54px;
+      height: 3px;
+      background: var(--dorado);
+      border-radius: 99px;
+      transition: width var(--transicion);
+    }
+    .tarjeta:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--sombra-fuerte);
+      border-color: rgba(193, 154, 91, .5);
+    }
+    .tarjeta:hover::after { width: 90px; }
+
+    .tarjeta-icono {
+      display: block;
+      width: 92px;
+      aspect-ratio: 2 / 3;
+      object-fit: cover;
+      margin: 0 auto .9rem;
+      border-radius: 8px;
+      border-bottom: 3px solid var(--dorado);
+      background: var(--crema);
+      box-shadow: 0 12px 24px rgba(36, 24, 17, .22);
+      transition: transform var(--transicion), box-shadow var(--transicion);
+    }
+    .tarjeta:hover .tarjeta-icono {
+      transform: translateY(-3px) rotate(-2deg);
+      box-shadow: 0 16px 30px rgba(36, 24, 17, .3);
+    }
+
+    .tarjeta h3 {
+      font-family: var(--fuente-titulos);
+      font-size: 1.25rem;
+      color: var(--cafe-800);
+      margin-bottom: .5rem;
+    }
+    .tarjeta p { font-size: .95rem; color: var(--texto-suave); }
+
+    .recomendado {
+      background: var(--blanco-calido);
+      border-block: 1px solid rgba(74, 52, 38, .08);
+    }
+
+    .recomendado-tarjeta {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: clamp(2rem, 5vw, 3.5rem);
+      align-items: center;
+      background: var(--blanco-calido);
+      border: 1px solid rgba(193, 154, 91, .35);
+      border-radius: 18px;
+      padding: clamp(2rem, 4.5vw, 3.4rem);
+      box-shadow: var(--sombra-suave);
+    }
+
+    .libro-portada {
+      border-radius: 10px;
+      overflow: hidden;
+      transform: rotate(-3deg);
+      filter: drop-shadow(0 20px 32px rgba(36, 24, 17, .35));
+      transition: transform var(--transicion);
+      width: min(320px, 100%);
+      margin-inline: auto;
+    }
+    .libro-portada:hover { transform: rotate(0deg) translateY(-3px); }
+    .libro-portada img {
+      width: 100%;
+      aspect-ratio: 2 / 3;
+      object-fit: cover;
+    }
+
+    .recomendado-info h3 {
+      font-family: var(--fuente-titulos);
+      font-size: clamp(1.7rem, 3.2vw, 2.4rem);
+      color: var(--cafe-900);
+      line-height: 1.15;
+      margin: .4rem 0 .3rem;
+    }
+    .recomendado-autor {
+      font-family: var(--fuente-titulos);
+      font-style: italic;
+      color: var(--texto-suave);
+      margin-bottom: 1.1rem;
+    }
+    .recomendado-info > p { color: var(--texto-suave); margin-bottom: 1.4rem; }
+
+    .chips { display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: 1.8rem; }
+    .chip {
+      font-size: .8rem;
+      font-weight: 600;
+      color: var(--cafe-700);
+      background: var(--crema);
+      border: 1px solid rgba(193, 154, 91, .4);
+      padding: .35rem .95rem;
+      border-radius: 999px;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 150;
+      display: grid;
+      place-items: center;
+      padding: 1.2rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .3s ease, visibility .3s ease;
+    }
+    .modal.abierto { opacity: 1; visibility: visible; }
+
+    .modal-fondo {
+      position: absolute;
+      inset: 0;
+      background: rgba(26, 16, 10, .65);
+      backdrop-filter: blur(4px);
+    }
+
+    .modal-caja {
+      position: relative;
+      width: min(560px, 100%);
+      max-height: 86vh;
+      overflow: auto;
+      background: var(--blanco-calido);
+      border-radius: 22px;
+      padding: clamp(1.8rem, 4vw, 2.8rem);
+      box-shadow: var(--sombra-fuerte);
+      transform: translateY(18px) scale(.97);
+      transition: transform .3s ease;
+    }
+    .modal.abierto .modal-caja { transform: none; }
+
+    .modal-cerrar {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 42px;
+      height: 42px;
+      font-size: 1.4rem;
+      line-height: 1;
+      color: var(--cafe-700);
+      background: var(--crema);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background var(--transicion), transform var(--transicion);
+    }
+    .modal-cerrar:hover { background: var(--dorado); transform: rotate(90deg); }
+
+    .modal-caja h3 {
+      font-family: var(--fuente-titulos);
+      font-size: 1.65rem;
+      color: var(--cafe-900);
+      margin-bottom: .2rem;
+    }
+    .modal-caja .recomendado-autor { margin-bottom: 1rem; }
+    .modal-caja p { color: var(--texto-suave); margin-bottom: 1.4rem; }
+
+    .modal-caja .modal-sub {
+      color: var(--texto-suave);
+      margin: -.5rem 0 1.7rem;
+      font-size: .95rem;
+    }
+
+    .campo { margin-bottom: 1.15rem; text-align: left; }
+    .campo label {
+      display: block;
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .03em;
+      color: var(--cafe-700);
+      margin-bottom: .4rem;
+    }
+    .campo input {
+      width: 100%;
+      padding: .8rem 1rem;
+      font-family: var(--fuente-texto);
+      font-size: 1rem;
+      color: var(--texto);
+      background: #fff;
+      border: 1.5px solid rgba(193, 154, 91, .45);
+      border-radius: 12px;
+      transition: border-color var(--transicion), box-shadow var(--transicion);
+    }
+    .campo input::placeholder { color: #b3a48c; }
+    .campo input:focus {
+      outline: none;
+      border-color: var(--dorado);
+      box-shadow: 0 0 0 4px rgba(193, 154, 91, .22);
+    }
+    .campo input:user-invalid { border-color: #c0603f; }
+
+    .btn-bloque { width: 100%; justify-content: center; margin-top: .5rem; }
+
+    .modal-caja--centro { text-align: center; }
+    .confirmacion-icono {
+      display: grid;
+      place-items: center;
+      width: 74px;
+      height: 74px;
+      margin: 0 auto 1.2rem;
+      font-size: 2.2rem;
+      color: var(--verde);
+      background: var(--crema);
+      border: 1.5px solid rgba(47, 74, 60, .35);
+      border-radius: 50%;
+    }
+
+    .resumen {
+      text-align: left;
+      display: grid;
+      gap: .55rem;
+      background: var(--crema);
+      border: 1px solid rgba(193, 154, 91, .3);
+      border-radius: 14px;
+      padding: 1.1rem 1.3rem;
+      margin: 1.5rem 0;
+    }
+    .resumen > div { display: flex; justify-content: space-between; gap: 1rem; font-size: .93rem; }
+    .resumen dt { color: var(--texto-suave); font-weight: 600; }
+    .resumen dd { margin: 0; color: var(--cafe-800); font-weight: 700; }
+
+    /* >>> TAREA: ESTILOS DE LA CONSULTA (clases cq-): modal, tarjetas y publicaciones <<< */
+    .menu a.menu-consulta {
+      background: var(--cafe-900);
+      color: var(--blanco-calido);
+      padding: .45rem 1.15rem;
+      border-radius: 999px;
+    }
+    .menu a.menu-consulta::after { display: none; }
+    .menu a.menu-consulta:hover { background: var(--dorado); color: var(--cafe-900); }
+
+    .modal-caja--ancha { width: min(980px, 100%); }
+
+    .cq-cabecera { text-align: center; padding-inline: 2rem; }
+    .cq-sobre {
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--dorado);
+      margin-bottom: .3rem;
+    }
+    .cq-sub { color: var(--texto-suave); font-size: .95rem; }
+
+    .cq-barra {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: .8rem 1.2rem;
+      margin: 1.3rem 0 1.1rem;
+    }
+    .cq-buscador { position: relative; flex: 1 1 280px; }
+    .cq-buscador-icono {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+    .cq-buscador input {
+      width: 100%;
+      padding: .8rem 1.1rem .8rem 2.8rem;
+      font-family: var(--fuente-texto);
+      font-size: .95rem;
+      color: var(--texto);
+      background: #fff;
+      border: 1.5px solid rgba(193, 154, 91, .45);
+      border-radius: 999px;
+      transition: border-color var(--transicion), box-shadow var(--transicion);
+    }
+    .cq-buscador input::placeholder { color: #b3a48c; }
+    .cq-buscador input:focus {
+      outline: none;
+      border-color: var(--dorado);
+      box-shadow: 0 0 0 4px rgba(193, 154, 91, .22);
+    }
+    .cq-total {
+      font-size: .85rem;
+      font-weight: 600;
+      color: var(--cafe-700);
+      background: var(--crema);
+      border: 1px solid rgba(193, 154, 91, .4);
+      padding: .45rem 1rem;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .cq-total:empty { display: none; }
+
+    .cq-cuerpo {
+      display: grid;
+      grid-template-columns: minmax(250px, 340px) 1fr;
+      gap: 1.2rem;
+      align-items: start;
+    }
+    .cq-lista {
+      display: grid;
+      gap: .7rem;
+      max-height: 52vh;
+      overflow: auto;
+      padding: .3rem .4rem .5rem .15rem;
+    }
+    .cq-detalle {
+      background: var(--crema);
+      border: 1px solid rgba(193, 154, 91, .3);
+      border-radius: 16px;
+      padding: 1.2rem;
+      min-height: 260px;
+      max-height: 52vh;
+      overflow: auto;
+    }
+
+    .cq-usuario {
+      display: flex;
+      align-items: center;
+      gap: .85rem;
+      width: 100%;
+      text-align: left;
+      font-family: var(--fuente-texto);
+      padding: .75rem .9rem;
+      background: var(--blanco-calido);
+      border: 1.5px solid rgba(193, 154, 91, .3);
+      border-radius: 14px;
+      box-shadow: var(--sombra-suave);
+      cursor: pointer;
+      transition: transform var(--transicion), box-shadow var(--transicion), border-color var(--transicion);
+    }
+    .cq-usuario:hover {
+      transform: translateY(-2px);
+      border-color: rgba(193, 154, 91, .65);
+      box-shadow: var(--sombra-fuerte);
+    }
+    .cq-usuario.activo {
+      background: #fff;
+      border-color: var(--verde);
+      box-shadow: 0 0 0 3px rgba(47, 74, 60, .15);
+    }
+    .cq-usuario-info { display: flex; flex-direction: column; min-width: 0; }
+    .cq-numero {
+      display: inline-block;
+      font-family: var(--fuente-texto);
+      font-size: .72rem;
+      font-weight: 700;
+      color: var(--blanco-calido);
+      background: var(--cafe-700);
+      padding: .05rem .5rem;
+      margin-right: .3rem;
+      border-radius: 999px;
+      vertical-align: middle;
+    }
+    .cq-usuario-nombre {
+      font-family: var(--fuente-titulos);
+      font-weight: 700;
+      color: var(--cafe-800);
+      line-height: 1.25;
+    }
+    .cq-usuario-dato {
+      font-size: .8rem;
+      color: var(--texto-suave);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .cq-avatar {
+      flex: none;
+      display: grid;
+      place-items: center;
+      width: 52px;
+      height: 52px;
+      font-size: 1.7rem;
+      line-height: 1;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, .85);
+      box-shadow: 0 6px 14px rgba(36, 24, 17, .18);
+    }
+    .cq-avatar--grande { width: 84px; height: 84px; font-size: 2.8rem; }
+    .cq-c0 { background: linear-gradient(135deg, #F3D9A4, #E2C288); }
+    .cq-c1 { background: linear-gradient(135deg, #CFE3D4, #9DC1AA); }
+    .cq-c2 { background: linear-gradient(135deg, #F1C9B8, #E3A58D); }
+    .cq-c3 { background: linear-gradient(135deg, #D8D0EC, #B7A9DB); }
+    .cq-c4 { background: linear-gradient(135deg, #CBE0EE, #9CC2DC); }
+
+    .cq-perfil {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.1rem;
+      padding-bottom: 1.1rem;
+      margin-bottom: 1.1rem;
+      border-bottom: 1px dashed rgba(193, 154, 91, .55);
+    }
+    .cq-perfil-info { min-width: 0; }
+    .cq-perfil-nombre {
+      font-family: var(--fuente-titulos);
+      font-size: 1.4rem;
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--cafe-900);
+    }
+    .cq-perfil-user {
+      font-size: .9rem;
+      font-weight: 600;
+      color: var(--dorado);
+      margin-bottom: .6rem;
+    }
+    .cq-chips { display: flex; flex-wrap: wrap; gap: .45rem; }
+    .cq-chip {
+      font-size: .78rem;
+      font-weight: 600;
+      color: var(--cafe-700);
+      background: var(--blanco-calido);
+      border: 1px solid rgba(193, 154, 91, .4);
+      padding: .3rem .75rem;
+      border-radius: 999px;
+      overflow-wrap: anywhere;
+    }
+    .cq-frase {
+      margin-top: .7rem;
+      font-family: var(--fuente-titulos);
+      font-style: italic;
+      font-size: .92rem;
+      color: var(--texto-suave);
+    }
+
+    .cq-posts-titulo {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-family: var(--fuente-titulos);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--cafe-800);
+      margin-bottom: .8rem;
+    }
+    .cq-badge {
+      font-family: var(--fuente-texto);
+      font-size: .75rem;
+      font-weight: 600;
+      color: var(--blanco-calido);
+      background: var(--verde);
+      padding: .1rem .65rem;
+      border-radius: 999px;
+    }
+    .cq-post {
+      background: var(--blanco-calido);
+      border: 1px solid rgba(193, 154, 91, .3);
+      border-left: 4px solid var(--dorado);
+      border-radius: 12px;
+      padding: .85rem 1rem;
+      margin-bottom: .7rem;
+    }
+    .cq-post-titulo {
+      font-family: var(--fuente-titulos);
+      font-size: 1rem;
+      line-height: 1.3;
+      color: var(--cafe-900);
+      margin-bottom: .35rem;
+    }
+    .cq-post-titulo::first-letter { text-transform: uppercase; }
+    .cq-post-cuerpo {
+      font-size: .9rem;
+      line-height: 1.55;
+      color: var(--texto-suave);
+      white-space: pre-line;
+    }
+
+    .cq-estado, .cq-vacio, .cq-inicial {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: var(--texto-suave);
+    }
+    .cq-estado--error { color: #b04a2f; }
+    .cq-estado .btn { margin-top: 1rem; }
+    .cq-inicial { padding-top: 3.5rem; }
+    .cq-inicial span { display: block; font-size: 2.8rem; margin-bottom: .5rem; }
+
+    @media (max-width: 760px) {
+      .cq-cuerpo { grid-template-columns: 1fr; }
+      .cq-lista { max-height: 36vh; }
+      .cq-detalle { max-height: none; }
+      .cq-perfil { flex-direction: column; align-items: center; text-align: center; }
+      .cq-chips { justify-content: center; }
+    }
+
+    .catalogo { background: var(--crema); }
+
+    .catalogo-controles {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: clamp(2rem, 4vw, 3rem);
+    }
+
+    .catalogo-buscador {
+      flex: 1 1 320px;
+      max-width: 420px;
+      position: relative;
+    }
+
+    .catalogo-buscador input {
+      width: 100%;
+      padding: .85rem 1.2rem;
+      font-family: var(--fuente-texto);
+      font-size: .95rem;
+      color: var(--texto);
+      background: var(--blanco-calido);
+      border: 1.5px solid rgba(193, 154, 91, .45);
+      border-radius: 999px;
+      transition: border-color var(--transicion), box-shadow var(--transicion);
+    }
+
+    .catalogo-buscador input:focus {
+      outline: none;
+      border-color: var(--dorado);
+      box-shadow: 0 0 0 4px rgba(193, 154, 91, .22);
+    }
+
+    .catalogo-buscador input::placeholder { color: #b3a48c; }
+
+    .catalogo-generos {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .55rem;
+      justify-content: center;
+    }
+
+    .filtro-chip {
+      font-size: .85rem;
+      font-weight: 600;
+      color: var(--cafe-700);
+      background: var(--blanco-calido);
+      border: 1.5px solid rgba(193, 154, 91, .45);
+      padding: .5rem 1.1rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background var(--transicion), color var(--transicion), border-color var(--transicion), transform var(--transicion);
+    }
+
+    .filtro-chip:hover {
+      background: var(--dorado);
+      color: var(--cafe-900);
+      border-color: var(--dorado);
+      transform: translateY(-2px);
+    }
+
+    .filtro-chip.activo {
+      background: var(--verde);
+      color: var(--blanco-calido);
+      border-color: var(--verde);
+    }
+
+    .catalogo-contador {
+      width: 100%;
+      text-align: center;
+      font-size: .85rem;
+      color: var(--texto-suave);
+      font-style: italic;
+      margin-top: .4rem;
+    }
+
+    .catalogo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.6rem;
+    }
+
+    .libro-card {
+      position: relative;
+      background: var(--blanco-calido);
+      border: 1px solid rgba(193, 154, 91, .3);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--sombra-suave);
+      transition: transform var(--transicion), box-shadow var(--transicion), border-color var(--transicion);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .libro-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--sombra-fuerte);
+      border-color: rgba(193, 154, 91, .5);
+    }
+
+    .libro-card-portada {
+      width: 100%;
+      aspect-ratio: 2 / 3;
+      object-fit: cover;
+      display: block;
+      background: var(--crema);
+    }
+
+    .libro-card-body {
+      padding: 1rem 1.1rem 1.2rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: .4rem;
+    }
+
+    .libro-card-genero {
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--dorado);
+    }
+
+    .libro-card-titulo {
+      font-family: var(--fuente-titulos);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--cafe-800);
+      line-height: 1.25;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .libro-card-autor {
+      font-family: var(--fuente-titulos);
+      font-style: italic;
+      font-size: .88rem;
+      color: var(--texto-suave);
+    }
+
+    .libro-card-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+      padding-top: .7rem;
+      border-top: 1px solid rgba(193, 154, 91, .25);
+      font-size: .82rem;
+      color: var(--texto-suave);
+    }
+
+    .libro-card-precio {
+      font-weight: 700;
+      color: var(--verde);
+      font-size: .95rem;
+    }
+
+    .catalogo-vacio {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--texto-suave);
+      font-style: italic;
+    }
+
+    .catalogo-error {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 3rem 1rem;
+      color: #b04a2f;
+    }
+
+    .catalogo-carga {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--texto-suave);
+    }
+
+    @media (max-width: 480px) {
+      .catalogo-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; }
+      .libro-card-body { padding: .8rem .85rem 1rem; }
+      .libro-card-titulo { font-size: .95rem; }
+    }
+
+    .frase {
+      position: relative;
+      background: var(--cafe-900);
+      text-align: center;
+      overflow: hidden;
+    }
+    .frase::before {
+      content: "\201C";
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--fuente-titulos);
+      font-size: 11rem;
+      line-height: 1;
+      color: var(--dorado);
+      opacity: .10;
+      pointer-events: none;
+    }
+    .frase blockquote {
+      position: relative;
+      max-width: 760px;
+      margin: 0 auto;
+      font-family: var(--fuente-titulos);
+      font-style: italic;
+      font-size: clamp(1.55rem, 4vw, 2.5rem);
+      line-height: 1.35;
+      color: #F3E9D6;
+      text-wrap: balance;
+    }
+    .frase cite {
+      display: block;
+      margin-top: 1.6rem;
+      font-family: var(--fuente-texto);
+      font-style: normal;
+      font-size: .85rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--dorado-claro);
+    }
+
+    .contacto { background: var(--blanco-calido); }
+
+    .contacto-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+      gap: 1.4rem;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .dato {
+      text-align: center;
+      background: #fff;
+      background: rgba(255, 255, 255, .6);
+      border: 1px solid rgba(193, 154, 91, .28);
+      border-radius: var(--radio);
+      padding: 1.05rem 1rem 1.15rem;
+      box-shadow: var(--sombra-suave);
+      transition: transform var(--transicion), box-shadow var(--transicion);
+    }
+    .dato:hover { transform: translateY(-2px); box-shadow: var(--sombra-fuerte); }
+
+    .dato-icono {
+      display: block;
+      width: 92px;
+      aspect-ratio: 2 / 3;
+      object-fit: cover;
+      margin: 0 auto .9rem;
+      border-radius: 8px;
+      border-bottom: 3px solid var(--dorado);
+      background: var(--crema);
+      box-shadow: 0 12px 24px rgba(36, 24, 17, .22);
+      transition: transform var(--transicion), box-shadow var(--transicion);
+    }
+    .dato:hover .dato-icono {
+      transform: translateY(-3px) rotate(-2deg);
+      box-shadow: 0 16px 30px rgba(36, 24, 17, .3);
+    }
+    .dato small {
+      display: block;
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--dorado);
+      margin-bottom: .3rem;
+    }
+    .dato strong {
+      display: block;
+      font-size: 1rem;
+      color: var(--cafe-700);
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+    .dato a { text-decoration: none; transition: color var(--transicion); }
+    .dato a:hover { color: var(--dorado); text-decoration: underline; }
+
+    .contacto-acciones {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 2.8rem;
+    }
+
+    .red-social {
+      display: grid;
+      place-items: center;
+      width: 52px;
+      height: 52px;
+      background: var(--crema);
+      border: 1.5px solid rgba(193, 154, 91, .5);
+      border-radius: 50%;
+      text-decoration: none;
+      transition: background var(--transicion), transform var(--transicion);
+    }
+    .red-social svg {
+      width: 22px;
+      height: 22px;
+      fill: var(--cafe-800);
+      transition: fill var(--transicion);
+    }
+    .red-social:hover {
+      background: var(--dorado);
+      transform: translateY(-2px);
+    }
+    .red-social:hover svg { fill: var(--cafe-900); }
+
+    .nota-editable {
+      text-align: center;
+      font-size: .82rem;
+      color: var(--texto-suave);
+      margin-top: 1.6rem;
+    }
+
+    .pie {
+      background: #201510;
+      color: var(--blanco-calido);
+      text-align: center;
+      padding: 4rem 0 2rem;
+      border-top: 3px solid var(--dorado);
+    }
+    .pie-logo {
+      font-family: var(--fuente-titulos);
+      font-size: 1.65rem;
+      font-weight: 700;
+    }
+    .pie-logo span { color: var(--dorado); font-style: italic; }
+    .pie-eslogan {
+      font-family: var(--fuente-titulos);
+      font-style: italic;
+      color: var(--dorado-claro);
+      margin: .5rem 0 2rem;
+    }
+    .pie-menu {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2.2rem;
+      list-style: none;
+      margin-bottom: 2.4rem;
+    }
+    .pie-menu a {
+      font-size: .95rem;
+      color: rgba(251, 247, 239, .85);
+      text-decoration: none;
+      transition: color var(--transicion);
+    }
+    .pie-menu a:hover { color: var(--dorado); }
+
+    .pie-divider {
+      width: min(320px, 60%);
+      height: 1px;
+      margin: 0 auto 1.6rem;
+      background: rgba(243, 233, 214, .14);
+    }
+    .pie-copy { font-size: .85rem; color: rgba(251, 247, 239, .55); }
+
+    @media (max-width: 900px) {
+      .quienes-grid { grid-template-columns: 1fr; }
+      .quienes-texto h2 { text-align: center; }
+      .recomendado-tarjeta { grid-template-columns: 1fr; }
+      .libro-portada { max-width: 300px; }
+    }
+
+    @media (max-width: 860px) {
+      .hamburguesa { display: flex; }
+
+      .menu {
+        position: fixed;
+        top: 84px;
+        left: 16px;
+        right: 16px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: .2rem;
+        background: var(--blanco-calido);
+        border: 1px solid rgba(193, 154, 91, .3);
+        border-radius: 16px;
+        padding: .9rem;
+        box-shadow: var(--sombra-fuerte);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-12px);
+        transition: opacity .3s ease, transform .3s ease, visibility .3s ease;
+      }
+      .menu.abierto { opacity: 1; visibility: visible; transform: none; }
+
+      .menu a {
+        display: block;
+        padding: .85rem 1rem;
+        border-radius: 10px;
+      }
+      .menu a::after { display: none; }
+      .menu a:hover, .menu a.activo { background: var(--crema); }
+    }
+
+    @media (max-width: 560px) {
+      html { scroll-padding-top: 78px; }
+      .nav { height: 66px; }
+      .menu { top: 78px; }
+
+      .hero-contenido { padding: 5rem 1.2rem 4.5rem; }
+      .hero-botones .btn { width: 100%; justify-content: center; }
+
+      .franja-lista { flex-direction: column; align-items: center; gap: 1.4rem; }
+      .franja-item { width: min(260px, 100%); }
+
+      .contacto-acciones .btn { width: 100%; justify-content: center; }
+      .indicador { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+      .reveal, .entrada { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+
+  <header class="cabecera" id="cabecera">
+    <nav class="nav contenedor" aria-label="Navegación principal">
+      <a class="logo" href="#inicio">John <span>&amp;</span> Letras</a>
+
+      <button class="hamburguesa" id="hamburguesa" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="menu" id="menu">
+        <li><a href="#inicio" class="activo">Inicio</a></li>
+        <li><a href="#quienes-somos">Quiénes somos</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#catalogo">Catálogo</a></li>
+        <li><a href="#consulta" id="enlace-consulta" class="menu-consulta" data-abrir="#modal-consulta">🔎 Consulta</a></li> <!-- >>> TAREA: botón "Consulta" del menú (abre el modal) -->
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="contenido">
+
+    <section class="hero" id="inicio">
+      <div class="hero-fondo" id="hero-fondo" aria-hidden="true">
+        <img src="https://images.unsplash.com/photo-1690439132747-0e80f32d9c9c?fm=jpg&q=80&w=1920&auto=format&fit=crop"
+             alt="Interior cálido de una librería con estanterías de madera"
+             loading="eager">
+      </div>
+
+      <div class="hero-contenido">
+        <p class="sobretitulo entrada" style="--d:.1s">Librería boutique · Cultura &amp; comunidad</p>
+        <h1 class="entrada" style="--d:.25s">Librería John <em>&amp;</em> Letras</h1>
+        <p class="eslogan entrada" style="--d:.45s">Historias que inspiran, conocimientos que transforman.</p>
+        <p class="descripcion entrada" style="--d:.6s">
+          Un espacio para descubrir nuevas historias, aprender, imaginar
+          y compartir el amor por la lectura.
+        </p>
+        <div class="hero-botones entrada" style="--d:.8s">
+          <a class="btn btn-dorado" href="#catalogo">Explorar libros</a>
+          <a class="btn btn-borde" href="#quienes-somos">Conócenos</a>
+        </div>
+      </div>
+
+      <a class="indicador" href="#quienes-somos" aria-label="Ir a la siguiente sección">Desliza</a>
+    </section>
+
+    <div class="franja">
+      <ul class="franja-lista contenedor">
+        <li class="franja-item reveal">
+          <img class="franja-icono" src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?fm=jpg&q=80&w=400&h=600&auto=format&fit=crop" alt="" loading="lazy">
+          <div><strong>Libros</strong><small>Selección cuidada</small></div>
+        </li>
+        <li class="franja-item reveal d1">
+          <img class="franja-icono" src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?fm=jpg&q=80&w=400&h=600&auto=format&fit=crop" alt="" loading="lazy">
+          <div><strong>Cultura</strong><small>Encuentros e ideas</small></div>
+        </li>
+        <li class="franja-item reveal d2">
+          <img class="franja-icono" src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d?fm=jpg&q=80&w=400&h=600&auto=format&fit=crop" alt="" loading="lazy">
+          <div><strong>Lectura</strong><small>El hábito que transforma</small></div>
+        </li>
+      </ul>
+    </div>
+
+    <section class="quienes" id="quienes-somos">
+      <div class="contenedor">
+        <div class="quienes-grid">
+          <figure class="quienes-imagen reveal">
+            <img src="https://images.unsplash.com/photo-1768011849522-6627ee0b4608?fm=jpg&q=80&w=1200&auto=format&fit=crop"
+                 alt="Rincón de lectura cálido y acogedor con libros y plantas"
+                 loading="lazy">
+            <figcaption class="etiqueta">Nuestro rincón de lectura</figcaption>
+          </figure>
+
+          <div class="quienes-texto">
+            <p class="sobretitulo reveal">Quiénes somos</p>
+            <h2 class="reveal d1">Un lugar para encontrarse con las historias</h2>
+            <p class="reveal d2">
+              En Librería John &amp; Letras creemos que cada libro puede abrir una nueva puerta.
+              Nuestro propósito es acercar la lectura a personas de todas las edades y crear un
+              espacio donde aprender, imaginar y descubrir sea parte de todos los días.
+            </p>
+
+            <ul class="rasgos">
+              <li class="rasgo reveal d2">
+                <img class="rasgo-icono" src="https://images.unsplash.com/photo-1512820790803-83ca734da794?fm=jpg&q=80&w=400&h=600&auto=format&fit=crop" alt="" loading="lazy">
+                <div class="rasgo-cuerpo">
+                  <h3>Pasión por la lectura</h3>
+                  <p>Promovemos el hábito de leer y descubrir nuevas historias.</p>
+                </div>
+              </li>
+              <li class="rasgo reveal d3">
+                <img class="rasgo-icono" src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?fm=jpg&q=80&w=400&h=600&auto=format&fit=crop" alt="" loading="lazy">
+                <div class="rasgo-cuerpo">
+                  <h3>Aprendizaje</h3>
+                  <p>Libros y recursos para estudiar, investigar y crecer.</p>
+                </div>
+              </li>
+              <li class="rasgo reveal d4">
+                <img class="rasgo-icono" src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?fm=jpg&q=80&w=400&h=600&auto=format&fit=crop" alt="" loading="lazy">
+                <div class="rasgo-cuerpo">
+                  <h3>Cultura</h3>
+                  <p>Un espacio para compartir ideas, conocimiento y creatividad.</p>
+                </div>
+              </li>
+            </ul>
+
+            <p class="firma reveal d5">— El equipo de John &amp; Letras</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="servicios" id="servicios">
+      <div class="contenedor">
+        <div class="cabecera-seccion">
+          <p class="sobretitulo reveal">Servicios</p>
+          <h2 class="reveal d1">Mucho más que una librería</h2>
+          <div class="ornamento reveal d1" aria-hidden="true">✦</div>
+          <p class="subtitulo-seccion reveal d2">
+            Cada rincón de nuestra librería fue pensado para acompañarte,
+            ya sea para estudiar, crear o simplemente disfrutar.
+          </p>
+        </div>
+
+        <div class="servicios-grid">
+          <article class="tarjeta reveal">
+            <img class="tarjeta-icono" src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?fm=jpg&q=80&w=400&h=600&auto=format&fit=crop" alt="" loading="lazy">
+            <h3>Venta de libros</h3>
+            <p>Novelas, literatura, educación, ciencia, historia y mucho más.</p>
+          </article>
+
+          <article class="tarjeta reveal d1">
+            <img class="tarjeta-icono" src="https://images.unsplash.com/photo-1472162072942-cd5147eb3902?fm=jpg&q=80&w=400&h=600&auto=format&fit=crop" alt="" loading="lazy">
+            <h3>Lectura infantil</h3>
+            <p>Historias y libros especialmente seleccionados para niños y jóvenes.</p>
+          </article>
+
+          <article class="tarjeta reveal d2">
+            <img class="tarjeta-icono" src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?fm=jpg&q=80&w=400&h=600&auto=format&fit=crop" alt="" loading="lazy">
+            <h3>Libros académicos</h3>
+            <p>Material de apoyo para estudiantes y amantes del conocimiento.</p>
+          </article>
+
+          <article class="tarjeta reveal d2">
+            <img class="tarjeta-icono" src="https://images.unsplash.com/photo-1455390582262-044cdead277a?fm=jpg&q=80&w=400&h=600&auto=format&fit=crop" alt="" loading="lazy">
+            <h3>Papelería</h3>
+            <p>Cuadernos, agendas, lapiceros y artículos para estudiar y crear.</p>
+          </article>
+
+          <article class="tarjeta reveal d3">
+            <img class="tarjeta-icono" src="https://images.unsplash.com/photo-1513885535751-8b9238bd345a?fm=jpg&q=80&w=400&h=600&auto=format&fit=crop" alt="" loading="lazy">
+            <h3>Regalos</h3>
+            <p>Detalles relacionados con la lectura y la escritura.</p>
+          </article>
+
+          <article class="tarjeta reveal d4">
+            <img class="tarjeta-icono" src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?fm=jpg&q=80&w=400&h=600&auto=format&fit=crop" alt="" loading="lazy">
+            <h3>Espacio de lectura</h3>
+            <p>Un ambiente tranquilo para disfrutar un buen libro.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="recomendado" id="recomendado">
+      <div class="contenedor">
+        <div class="recomendado-tarjeta reveal">
+          <div class="libro-portada">
+            <img src="https://images.unsplash.com/photo-1640098322814-10d258930ed4?fm=jpg&q=80&w=900&auto=format&fit=crop"
+                 alt="Libro abierto iluminado por una lámpara cálida sobre una mesa de madera"
+                 loading="lazy">
+          </div>
+
+          <div class="recomendado-info">
+            <p class="sobretitulo">Recomendado de la semana</p>
+            <h3>La Casa de los Libros Soñados</h3>
+            <p class="recomendado-autor">J. A. Montenegro</p>
+            <p>
+              Una librería aparece cada amanecer en una calle distinta y solo la encuentran
+              quienes verdaderamente buscan una historia. Cuando Elena hereda la llave de su
+              abuela, descubre un lugar donde los libros recuerdan a sus lectores…
+            </p>
+            <div class="chips">
+              <span class="chip">Ficción literaria</span>
+              <span class="chip">328 páginas</span>
+              <span class="chip">Tapa blanda</span>
+            </div>
+            <button class="btn btn-dorado" id="btn-recomendacion" type="button" data-abrir="#modal">Ver recomendación</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="catalogo" id="catalogo">
+      <div class="contenedor">
+        <div class="cabecera-seccion">
+          <p class="sobretitulo reveal">Catálogo</p>
+          <h2 class="reveal d1">Nuestro Catálogo de Libros</h2>
+          <div class="ornamento reveal d1" aria-hidden="true">✦</div>
+          <p class="subtitulo-seccion reveal d2">
+            Explora nuestra selección cuidada. Usa el buscador o filtra por género para encontrar tu próxima lectura.
+          </p>
+        </div>
+
+        <div class="catalogo-controles reveal d1">
+          <div class="catalogo-buscador">
+            <input type="search" id="catalogo-buscar" placeholder="Buscar por título o autor..." autocomplete="off">
+          </div>
+          <div class="catalogo-generos" id="catalogo-generos">
+            <button class="filtro-chip activo" data-genero="todos" type="button">Todos</button>
+          </div>
+          <p class="catalogo-contador" id="catalogo-contador"></p>
+        </div>
+
+        <div class="catalogo-grid" id="catalogo-grid">
+          <p class="catalogo-carga">Cargando catálogo...</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="frase" aria-label="Frase literaria">
+      <div class="contenedor reveal">
+        <blockquote>
+          Leer es viajar sin moverse del lugar.
+          <cite>— Librería John &amp; Letras</cite>
+        </blockquote>
+      </div>
+    </section>
+
+    <section class="contacto" id="contacto">
+      <div class="contenedor">
+        <div class="cabecera-seccion">
+          <p class="sobretitulo reveal">Contacto</p>
+          <h2 class="reveal d1">Visítanos y descubre tu próxima historia.</h2>
+          <div class="ornamento reveal d1" aria-hidden="true">✦</div>
+        </div>
+
+        <div class="contacto-grid">
+          <div class="dato reveal">
+            <img class="dato-icono" src="https://images.unsplash.com/photo-1601950355967-b6b9c0be56bd?fm=jpg&q=80&w=400&h=600&auto=format&fit=crop" alt="" loading="lazy">
+            <small>Dirección</small>
+            <strong>Calle Principal #00-00</strong>
+          </div>
+          <div class="dato reveal d1">
+            <img class="dato-icono" src="https://images.unsplash.com/photo-1523966211575-eb4a01e7dd51?fm=jpg&q=80&w=400&h=600&auto=format&fit=crop" alt="" loading="lazy">
+            <small>Teléfono</small>
+            <strong><a href="tel:+573000000000">300 000 0000</a></strong>
+          </div>
+          <div class="dato reveal d2">
+            <img class="dato-icono" src="https://images.unsplash.com/photo-1649019489428-70f505daacd6?fm=jpg&q=80&w=400&h=600&auto=format&fit=crop" alt="" loading="lazy">
+            <small>Correo</small>
+            <strong><a href="mailto:contacto@johnyletras.com">contacto@johnyletras.com</a></strong>
+          </div>
+          <div class="dato reveal d3">
+            <img class="dato-icono" src="https://images.unsplash.com/photo-1512428559087-560fa5ceab42?fm=jpg&q=80&w=400&h=600&auto=format&fit=crop" alt="" loading="lazy">
+            <small>WhatsApp</small>
+            <strong><a href="https://wa.me/573000000000" target="_blank" rel="noopener">+57 300 000 0000</a></strong>
+          </div>
+        </div>
+
+        <div class="contacto-acciones reveal">
+          <a class="btn btn-dorado" href="https://wa.me/573000000000" target="_blank" rel="noopener">Regístrate y sé parte</a>
+          <a class="btn btn-verde" href="https://wa.me/573000000000" target="_blank" rel="noopener">
+            Escríbenos por WhatsApp
+          </a>
+          <a class="red-social" href="https://instagram.com/johnyletras" target="_blank" rel="noopener" aria-label="Instagram de John & Letras" title="Instagram">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M12 2c-2.72 0-3.06.01-4.12.06-1.06.05-1.79.22-2.43.47-.66.26-1.22.6-1.77 1.15A4.9 4.9 0 0 0 2.53 5.45c-.25.64-.42 1.37-.47 2.43C2.01 8.94 2 9.28 2 12s.01 3.06.06 4.12c.05 1.06.22 1.79.47 2.43.26.66.6 1.22 1.15 1.77.55.55 1.11.89 1.77 1.15.64.25 1.37.42 2.43.47C8.94 21.99 9.28 22 12 22s3.06-.01 4.12-.06c1.06-.05 1.79-.22 2.43-.47a4.9 4.9 0 0 0 1.77-1.15 4.9 4.9 0 0 0 1.15-1.77c.25-.64.42-1.37.47-2.43.05-1.06.06-1.4.06-4.12s-.01-3.06-.06-4.12c-.05-1.06-.22-1.79-.47-2.43a4.9 4.9 0 0 0-1.15-1.77A4.9 4.9 0 0 0 18.55 2.53c-.64-.25-1.37-.42-2.43-.47C15.06 2.01 14.72 2 12 2Zm0 1.8c2.67 0 2.99.01 4.04.06.98.04 1.5.21 1.86.34.47.18.8.4 1.15.75.35.35.57.68.75 1.15.13.36.3.88.34 1.86.05 1.05.06 1.37.06 4.04s-.01 2.99-.06 4.04c-.04.98-.21 1.5-.34 1.86-.18.47-.4.8-.75 1.15-.35.35-.68.57-1.15.75-.36.13-.88.3-1.86.34-1.05.05-1.37.06-4.04.06s-2.99-.01-4.04-.06c-.98-.04-1.5-.21-1.86-.34a3.1 3.1 0 0 1-1.15-.75 3.1 3.1 0 0 1-.75-1.15c-.13-.36-.3-.88-.34-1.86-.05-1.05-.06-1.37-.06-4.04s.01-2.99.06-4.04c.04-.98.21-1.5.34-1.86.18-.47.4-.8.75-1.15.35-.35.68-.57 1.15-.75.36-.13.88-.3 1.86-.34C9.01 3.81 9.33 3.8 12 3.8Zm0 3.06a5.14 5.14 0 1 0 0 10.28 5.14 5.14 0 0 0 0-10.28Zm0 8.48a3.34 3.34 0 1 1 0-6.68 3.34 3.34 0 0 1 0 6.68Zm6.54-8.68a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0Z"/>
+            </svg>
+          </a>
+          <a class="red-social" href="https://facebook.com/johnyletras" target="_blank" rel="noopener" aria-label="Facebook de John & Letras" title="Facebook">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M13.5 21.99v-8.2h2.75l.41-3.19h-3.16V8.55c0-.92.26-1.55 1.57-1.55h1.68V4.14C15.98 4.06 15.1 4 14.06 4c-2.17 0-3.65 1.32-3.65 3.76v2.84H7.65v3.19h2.76v8.2h3.09Z"/>
+            </svg>
+          </a>
+        </div>
+
+        <p class="nota-editable reveal">
+          
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <div class="contenedor">
+      <p class="pie-logo">Librería John <span>&amp;</span> Letras</p>
+      <p class="pie-eslogan">Historias que inspiran, conocimientos que transforman.</p>
+
+      <ul class="pie-menu">
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#quienes-somos">Quiénes somos</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+
+      <div class="pie-divider"></div>
+      <p class="pie-copy">© 2026 Librería John &amp; Letras. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-titulo" aria-hidden="true">
+    <div class="modal-fondo" data-cerrar></div>
+    <div class="modal-caja">
+      <button class="modal-cerrar" type="button" data-cerrar aria-label="Cerrar ventana">×</button>
+      <h3 id="modal-titulo">La Casa de los Libros Soñados</h3>
+      <p class="recomendado-autor">J. A. Montenegro · Ficción literaria</p>
+      <p>
+        Una librería aparece cada amanecer en una calle distinta y solo la encuentran quienes
+        verdaderamente buscan una historia. Cuando Elena hereda la llave de su abuela, descubre
+        un lugar donde los libros recuerdan a sus lectores y las páginas guardan conversaciones
+        pendientes.
+      </p>
+      <p>
+        Entre estanterías que se reordenan solas y un gato que parece saber más de lo que calla,
+        Elena aprenderá que algunas historias no se leen: se heredan. Una novela cálida sobre la
+        memoria, la familia y el poder de las historias bien contadas.
+      </p>
+      <div class="chips">
+        <span class="chip">328 páginas</span>
+        <span class="chip">Tapa blanda</span>
+        <span class="chip">Edición John &amp; Letras</span>
+      </div>            <a class="btn btn-verde" href="https://wa.me/573000000000?text=Hola%2C%20me%20interesa%20%C2%AALa%20Casa%20de%20los%20Libros%20So%C3%B1ados%C2%BB" target="_blank" rel="noopener">
+              Preguntar por este libro
+            </a>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- >>> TAREA: MODAL "CONSULTA" (usuarios y publicaciones) <<<   -->
+  <!-- ============================================================ -->
+  <div class="modal" id="modal-consulta" role="dialog" aria-modal="true" aria-labelledby="modal-consulta-titulo" aria-hidden="true">
+    <div class="modal-fondo" data-cerrar></div>
+    <div class="modal-caja modal-caja--ancha">
+      <button class="modal-cerrar" type="button" data-cerrar aria-label="Cerrar ventana">×</button>
+
+      <div class="cq-cabecera">
+        <div class="cq-sobre">Comunidad de lectores</div>
+        <h3 id="modal-consulta-titulo">📚 Consulta de usuarios</h3>
+        <div class="cq-sub">Busca a un lector y descubre sus publicaciones.</div>
+      </div>
+
+      <div class="cq-barra">
+        <div class="cq-buscador">
+          <span class="cq-buscador-icono" aria-hidden="true">🔍</span>
+          <input type="search" id="cq-buscar" placeholder="Buscar por nombre, correo, empresa o número (ej. 3)..." autocomplete="off" aria-label="Buscar usuarios">
+        </div>
+        <div class="cq-total" id="cq-contador" aria-live="polite"></div>
+      </div>
+
+      <div class="cq-cuerpo">
+        <div class="cq-lista" id="cq-lista"></div>
+        <div class="cq-detalle" id="cq-detalle">
+          <div class="cq-inicial"><span>📚</span>Selecciona un usuario de la lista para ver sus publicaciones.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 1: formulario de registro -->
+  <div class="modal" id="modal-registro" role="dialog" aria-modal="true" aria-labelledby="modal-registro-titulo" aria-hidden="true">
+    <div class="modal-fondo" data-cerrar></div>
+    <div class="modal-caja">
+      <button class="modal-cerrar" type="button" data-cerrar aria-label="Cerrar ventana">×</button>
+      <h3 id="modal-registro-titulo">Sé parte de John &amp; Letras</h3>
+      <p class="modal-sub">Déjanos tus datos y te avisaremos de novedades, recomendaciones y eventos.</p>
+
+      <form id="form-registro">
+        <div class="campo">
+          <label for="reg-correo">Correo electrónico</label>
+          <input type="email" id="reg-correo" name="correo" placeholder="tucorreo@ejemplo.com" autocomplete="email" required>
+        </div>
+        <div class="campo">
+          <label for="reg-telefono">Teléfono</label>
+          <input type="tel" id="reg-telefono" name="telefono" placeholder="300 000 0000" autocomplete="tel" inputmode="tel" pattern="[0-9()+\\-\\s]{7,}" title="Ingresa un teléfono válido (mínimo 7 dígitos)" required>
+        </div>
+        <div class="campo">
+          <label for="reg-edad">Edad</label>
+          <input type="number" id="reg-edad" name="edad" placeholder="18" min="1" max="120" inputmode="numeric" required>
+        </div>
+
+        <button class="btn btn-dorado btn-bloque" type="submit">Enviar</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 2: confirmación de envío -->
+  <div class="modal" id="modal-confirmacion" role="dialog" aria-modal="true" aria-labelledby="modal-confirmacion-titulo" aria-hidden="true">
+    <div class="modal-fondo" data-cerrar></div>
+    <div class="modal-caja modal-caja--centro">
+      <button class="modal-cerrar" type="button" data-cerrar aria-label="Cerrar ventana">×</button>          <div class="confirmacion-icono" aria-hidden="true">✓</div>
+      <h3 id="modal-confirmacion-titulo">¡Gracias por registrarte!</h3>
+      <p>Hemos recibido tus datos correctamente. Pronto te contactaremos.</p>
+
+      <dl class="resumen">
+        <div><dt>Correo</dt><dd id="conf-correo">—</dd></div>
+        <div><dt>Teléfono</dt><dd id="conf-telefono">—</dd></div>
+        <div><dt>Edad</dt><dd id="conf-edad">—</dd></div>
+      </dl>
+
+      <button class="btn btn-verde btn-bloque" type="button" data-cerrar>Entendido</button>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      'use strict';
+
+      // --- Catálogo: carga libros.json, buscador y filtro por género ---
+      const grid = document.getElementById('catalogo-grid');
+      const buscador = document.getElementById('catalogo-buscar');
+      const contenedorGeneros = document.getElementById('catalogo-generos');
+      const contador = document.getElementById('catalogo-contador');
+
+      let libros = [];
+      let generoActivo = 'todos';
+      let textoBusqueda = '';
+
+      const formatPrecio = (v) => new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(v);
+
+      const escaparHTML = (s) => String(s).replace(/[&<>'"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[c]));
+
+      const tarjetaLibro = (libro) => {
+        const titulo = escaparHTML(libro.titulo || '');
+        const autor = escaparHTML(libro.autor || '');
+        const genero = escaparHTML(libro.genero || '');
+        const sinopsis = escaparHTML(libro.sinopsis || '');
+        const portada = libro.portada || 'cover.svg';
+        const precio = Number(libro.precio);
+        const paginas = Number(libro.paginas);
+
+        return `
+          <article class="libro-card" title="${sinopsis}">
+            <img class="libro-card-portada" src="${portada}" alt="Portada de ${titulo}" loading="lazy" onerror="this.onerror=null;this.src='cover.svg'">
+            <div class="libro-card-body">
+              <span class="libro-card-genero">${genero}</span>
+              <h3 class="libro-card-titulo">${titulo}</h3>
+              <p class="libro-card-autor">${autor}</p>
+              <div class="libro-card-info">
+                <span>${paginas > 0 ? paginas + ' pág.' : ''}</span>
+                <span class="libro-card-precio">${!isNaN(precio) ? formatPrecio(precio) : ''}</span>
+              </div>
+            </div>
+          </article>`;
+      };
+
+      const filtrarYRender = () => {
+        const texto = textoBusqueda.toLowerCase();
+        const filtrados = libros.filter(l => {
+          const pasaGenero = generoActivo === 'todos' || (l.genero || '').toLowerCase() === generoActivo.toLowerCase();
+          const pasaTexto = !texto ||
+            (l.titulo || '').toLowerCase().includes(texto) ||
+            (l.autor || '').toLowerCase().includes(texto);
+          return pasaGenero && pasaTexto;
+        });
+
+        if (filtrados.length === 0) {
+          grid.innerHTML = `<p class="catalogo-vacio">No encontramos libros que coincidan con tu búsqueda.</p>`;
+        } else {
+          grid.innerHTML = filtrados.map(tarjetaLibro).join('');
+        }
+
+        contador.textContent = `Mostrando ${filtrados.length} de ${libros.length} libros`;
+
+        // Animación reveal para las tarjetas nuevas
+        if ('IntersectionObserver' in window) {
+          grid.querySelectorAll('.libro-card').forEach(card => {
+            card.classList.add('reveal', 'visible');
+          });
+        }
+      };
+
+      const construirFiltros = () => {
+        const generos = Array.from(new Set(libros.map(l => (l.genero || '').trim()).filter(Boolean))).sort((a, b) => a.localeCompare(b));
+        const chipsExistentes = contenedorGeneros.querySelectorAll('.filtro-chip');
+        // Eliminar chips previos excepto "Todos"
+        chipsExistentes.forEach(chip => {
+          if (chip.dataset.genero !== 'todos') chip.remove();
+        });
+
+        generos.forEach(g => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'filtro-chip';
+          btn.dataset.genero = g;
+          btn.textContent = g;
+          btn.addEventListener('click', () => {
+            generoActivo = (generoActivo === g) ? 'todos' : g;
+            contenedorGeneros.querySelectorAll('.filtro-chip').forEach(c => {
+              c.classList.toggle('activo', c.dataset.genero === generoActivo);
+            });
+            filtrarYRender();
+          });
+          contenedorGeneros.appendChild(btn);
+        });
+
+        // Listener para "Todos"
+        const chipTodos = contenedorGeneros.querySelector('[data-genero="todos"]');
+        if (chipTodos) {
+          chipTodos.addEventListener('click', () => {
+            generoActivo = 'todos';
+            contenedorGeneros.querySelectorAll('.filtro-chip').forEach(c => {
+              c.classList.toggle('activo', c.dataset.genero === 'todos');
+            });
+            filtrarYRender();
+          });
+        }
+      };
+
+      const cargarLibros = async () => {
+        try {
+          const res = await fetch('libros.json');
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          const data = await res.json();
+          if (!Array.isArray(data)) throw new Error('Formato inválido');
+          libros = data;
+          construirFiltros();
+          filtrarYRender();
+        } catch (err) {
+          console.error('Error cargando catálogo:', err);
+          grid.innerHTML = `<p class="catalogo-error">No se pudo cargar el catálogo. Verifica que el archivo <code>libros.json</code> exista y que estés sirviendo la página por un servidor local (por ejemplo: <code>python -m http.server</code> o <code>npx serve</code>).</p>`;
+        }
+      };
+
+      // Buscador
+      if (buscador) {
+        buscador.addEventListener('input', () => {
+          textoBusqueda = buscador.value.trim();
+          filtrarYRender();
+        });
+      }
+
+      // Iniciar carga
+      cargarLibros();
+
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      const cabecera = document.getElementById('cabecera');
+      const marcarScroll = () => {
+        cabecera.classList.toggle('desplazada', window.scrollY > 8);
+      };
+      marcarScroll();
+      window.addEventListener('scroll', marcarScroll, { passive: true });
+
+      const botonMenu = document.getElementById('hamburguesa');
+      const menu = document.getElementById('menu');
+
+      const cerrarMenu = () => {
+        menu.classList.remove('abierto');
+        botonMenu.classList.remove('abierto');
+        botonMenu.setAttribute('aria-expanded', 'false');
+        botonMenu.setAttribute('aria-label', 'Abrir menú');
+      };
+
+      botonMenu.addEventListener('click', () => {
+        const abierto = menu.classList.toggle('abierto');
+        botonMenu.classList.toggle('abierto', abierto);
+        botonMenu.setAttribute('aria-expanded', String(abierto));
+        botonMenu.setAttribute('aria-label', abierto ? 'Cerrar menú' : 'Abrir menú');
+      });
+
+      menu.querySelectorAll('a').forEach(a => a.addEventListener('click', cerrarMenu));
+      document.addEventListener('click', e => {
+        if (menu.classList.contains('abierto') && !e.target.closest('.nav')) cerrarMenu();
+      });
+
+      const elementosReveal = document.querySelectorAll('.reveal');
+      if (reduceMotion || !('IntersectionObserver' in window)) {
+        elementosReveal.forEach(el => el.classList.add('visible'));
+      } else {
+        const io = new IntersectionObserver(entradas => {
+          entradas.forEach(entrada => {
+            if (entrada.isIntersecting) {
+              entrada.target.classList.add('visible');
+              io.unobserve(entrada.target);
+            }
+          });
+        }, { threshold: .15, rootMargin: '0px 0px -60px 0px' });
+        elementosReveal.forEach(el => io.observe(el));
+      }
+
+      const enlaces = Array.from(document.querySelectorAll('.menu a'));
+      const secciones = enlaces
+        .map(a => document.querySelector(a.getAttribute('href')))
+        .filter(Boolean);
+
+      // Asegurar que la sección de catálogo también active su enlace en el menú
+      const seccionCatalogo = document.getElementById('catalogo');
+      if (seccionCatalogo && 'IntersectionObserver' in window) {
+        const ioCat = new IntersectionObserver(entradas => {
+          entradas.forEach(entrada => {
+            if (entrada.isIntersecting) {
+              enlaces.forEach(a => {
+                a.classList.toggle('activo', a.getAttribute('href') === '#catalogo');
+              });
+            }
+          });
+        }, { rootMargin: '-45% 0px -50% 0px' });
+        ioCat.observe(seccionCatalogo);
+      }
+
+      if ('IntersectionObserver' in window && secciones.length) {
+        const ioActivo = new IntersectionObserver(entradas => {
+          entradas.forEach(entrada => {
+            if (entrada.isIntersecting) {
+              enlaces.forEach(a => {
+                a.classList.toggle('activo', a.getAttribute('href') === '#' + entrada.target.id);
+              });
+            }
+          });
+        }, { rootMargin: '-45% 0px -50% 0px' });
+        secciones.forEach(s => ioActivo.observe(s));
+      }
+
+      const fondoHero = document.getElementById('hero-fondo');
+      const esEscritorio = window.matchMedia('(min-width: 861px)').matches;
+      if (!reduceMotion && fondoHero && esEscritorio) {
+        let pendiente = false;
+        window.addEventListener('scroll', () => {
+          if (pendiente) return;
+          pendiente = true;
+          requestAnimationFrame(() => {
+            const y = Math.min(window.scrollY * 0.12, 110);
+            fondoHero.style.transform = 'translate3d(0, ' + y + 'px, 0)';
+            pendiente = false;
+          });
+        }, { passive: true });
+      }
+
+      // --- Sistema de modales reutilizable (data-abrir / data-cerrar) ---
+      let ultimoFoco = null;
+
+      const abrirModal = (modal) => {
+        ultimoFoco = document.activeElement;
+        modal.classList.add('abierto');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        const foco = modal.querySelector('.modal-cerrar') || modal.querySelector('input, button');
+        if (foco) foco.focus();
+      };
+
+      const cerrarModal = (modal) => {
+        modal.classList.remove('abierto');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        if (ultimoFoco) ultimoFoco.focus();
+      };
+
+      const modalAbierto = () => document.querySelector('.modal.abierto');
+
+      // Abrir cualquier modal mediante botones con data-abrir="#id-del-modal"
+      document.querySelectorAll('[data-abrir]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const modal = document.querySelector(btn.getAttribute('data-abrir'));
+          if (modal) abrirModal(modal);
+        });
+      });
+
+      // Cerrar con [data-cerrar]: fondo, botón "×" o botones de acción
+      document.querySelectorAll('.modal').forEach(modal => {
+        modal.querySelectorAll('[data-cerrar]').forEach(el => {
+          el.addEventListener('click', () => cerrarModal(modal));
+        });
+      });
+
+      document.addEventListener('keydown', e => {
+        if (e.key !== 'Escape') return;
+        cerrarMenu();
+        const abierto = modalAbierto();
+        if (abierto) cerrarModal(abierto);
+      });
+
+      // ==============================================================
+      // >>> TAREA: CONSULTA DE USUARIOS Y PUBLICACIONES (FETCH) <<<
+      // API: JSONPlaceholder -> /users  y  /posts?userId=ID
+      // ==============================================================
+      const API_URL = 'https://jsonplaceholder.typicode.com';
+      const EMOJIS_USUARIO = ['🧑‍🎨', '👩‍🚀', '🧑‍🍳', '👨‍🔬', '👩‍💻', '🧑‍🏫', '👨‍🌾', '👩‍⚕️', '🧑‍🚒', '👨‍🎤'];
+
+      const cqEnlace = document.getElementById('enlace-consulta');
+      const cqLista = document.getElementById('cq-lista');
+      const cqBuscar = document.getElementById('cq-buscar');
+      const cqContador = document.getElementById('cq-contador');
+      const cqDetalle = document.getElementById('cq-detalle');
+
+      let cqUsuarios = [];
+      let cqTexto = '';
+      let cqSeleccionado = null;
+      let cqCargado = false;
+      let cqCargando = false;
+      let cqControlador = null; // AbortController de la consulta de publicaciones en curso
+
+      const normalizar = (s) => String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+      const cqAvatar = (u, grande) =>
+        `<span class="cq-avatar cq-c${(u.id - 1) % 5}${grande ? ' cq-avatar--grande' : ''}" aria-hidden="true">${EMOJIS_USUARIO[(u.id - 1) % EMOJIS_USUARIO.length]}</span>`;
+
+      const cqRenderLista = () => {
+        const t = normalizar(cqTexto);
+        // Si lo escrito es solo un número (ej. "3" o "#3"), se busca por número de usuario (id)
+        const porNumero = /^#?\d+$/.test(cqTexto);
+        const idBuscado = porNumero ? Number(cqTexto.replace('#', '')) : null;
+        const filtrados = cqUsuarios.filter(u => {
+          if (!t) return true;
+          if (porNumero) return u.id === idBuscado;
+          return normalizar([u.name, u.username, u.email, u.company?.name ?? ''].join(' ')).includes(t);
+        });
+
+        cqContador.textContent = `👥 Mostrando ${filtrados.length} de ${cqUsuarios.length} usuarios`;
+
+        if (filtrados.length === 0) {
+          cqLista.innerHTML = porNumero
+            ? `<div class="cq-vacio">🔎 No existe el usuario #${idBuscado}. Prueba con un número del 1 al ${cqUsuarios.length}.</div>`
+            : `<div class="cq-vacio">🔎 No hay usuarios que coincidan con “${escaparHTML(cqTexto)}”.</div>`;
+          return;
+        }
+
+        cqLista.innerHTML = filtrados.map(u => `
+          <button type="button" class="cq-usuario${u.id === cqSeleccionado ? ' activo' : ''}" data-id="${u.id}" aria-pressed="${u.id === cqSeleccionado}">
+            ${cqAvatar(u)}
+            <span class="cq-usuario-info">
+              <span class="cq-usuario-nombre"><span class="cq-numero">#${u.id}</span>${escaparHTML(u.name)}</span>
+              <span class="cq-usuario-dato">✉️ ${escaparHTML(u.email)}</span>
+              <span class="cq-usuario-dato">🏢 ${escaparHTML(u.company?.name ?? '—')}</span>
+            </span>
+          </button>`).join('');
+      };
+
+      // --------------------------------------------------------------
+      // >>> CONSULTA 1: GET /users  (lista de usuarios)
+      // --------------------------------------------------------------
+      const cqCargarUsuarios = async () => {
+        if (cqCargado || cqCargando) return;
+        cqCargando = true;
+        cqContador.textContent = '';
+        cqLista.innerHTML = '<div class="cq-estado">⏳ Cargando usuarios...</div>';
+        try {
+          const res = await fetch(`${API_URL}/users`);
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          const data = await res.json();
+          if (!Array.isArray(data)) throw new Error('Formato inválido');
+          cqUsuarios = data;
+          cqCargado = true;
+          cqRenderLista();
+        } catch (err) {
+          console.error('Error cargando usuarios:', err);
+          cqLista.innerHTML = `<div class="cq-estado cq-estado--error">⚠️ No se pudieron cargar los usuarios. Revisa tu conexión e inténtalo de nuevo.<br><button type="button" class="btn btn-dorado" id="cq-reintentar-usuarios">Reintentar</button></div>`;
+        } finally {
+          cqCargando = false;
+        }
+      };
+
+      const cqCabeceraUsuario = (u) => `
+        <div class="cq-perfil">
+          ${cqAvatar(u, true)}
+          <div class="cq-perfil-info">
+            <div class="cq-perfil-nombre">${escaparHTML(u.name)}</div>
+            <div class="cq-perfil-user">Usuario #${u.id} · @${escaparHTML(u.username)}</div>
+            <div class="cq-chips">
+              <span class="cq-chip">✉️ ${escaparHTML(u.email)}</span>
+              <span class="cq-chip">🏢 ${escaparHTML(u.company?.name ?? '—')}</span>
+              <span class="cq-chip">📞 ${escaparHTML(u.phone ?? '—')}</span>
+              <span class="cq-chip">🌐 ${escaparHTML(u.website ?? '—')}</span>
+              <span class="cq-chip">📍 ${escaparHTML(u.address?.city ?? '—')}</span>
+            </div>
+            <div class="cq-frase">“${escaparHTML(u.company?.catchPhrase ?? '')}”</div>
+          </div>
+        </div>`;
+
+      // --------------------------------------------------------------
+      // >>> CONSULTA 2: GET /posts?userId=ID  (publicaciones del usuario)
+      // El ID se reemplaza por el del usuario seleccionado.
+      // --------------------------------------------------------------
+      const cqCargarPosts = async (id) => {
+        if (cqControlador) cqControlador.abort(); // cancela la consulta anterior si cambian de usuario
+        cqControlador = new AbortController();
+        const { signal } = cqControlador;
+        const zona = document.getElementById('cq-posts');
+        zona.innerHTML = '<div class="cq-estado">⏳ Cargando publicaciones...</div>';
+
+        try {
+          const res = await fetch(`${API_URL}/posts?userId=${encodeURIComponent(id)}`, { signal });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          const posts = await res.json();
+          if (!Array.isArray(posts)) throw new Error('Formato inválido');
+
+          if (posts.length === 0) {
+            zona.innerHTML = '<div class="cq-vacio">📭 Este usuario aún no tiene publicaciones.</div>';
+            return;
+          }
+          zona.innerHTML = `<div class="cq-posts-titulo">📝 Publicaciones <span class="cq-badge">${posts.length}</span></div>` +
+            posts.map(p => `
+              <article class="cq-post">
+                <h4 class="cq-post-titulo">📌 ${escaparHTML(p.title)}</h4>
+                <div class="cq-post-cuerpo">${escaparHTML(p.body)}</div>
+              </article>`).join('');
+        } catch (err) {
+          if (err.name === 'AbortError') return; // fue cancelada a propósito, no es un error
+          console.error('Error cargando publicaciones:', err);
+          zona.innerHTML = `<div class="cq-estado cq-estado--error">⚠️ No se pudieron cargar las publicaciones. Revisa tu conexión e inténtalo de nuevo.<br><button type="button" class="btn btn-dorado" data-reintentar-posts="${id}">Reintentar</button></div>`;
+        }
+      };
+
+      const cqSeleccionar = (id, desdeBusqueda) => {
+        const u = cqUsuarios.find(x => x.id === id);
+        if (!u) return;
+        cqSeleccionado = id;
+
+        cqLista.querySelectorAll('.cq-usuario').forEach(b => {
+          const activo = Number(b.dataset.id) === id;
+          b.classList.toggle('activo', activo);
+          b.setAttribute('aria-pressed', String(activo));
+        });
+
+        cqDetalle.innerHTML = cqCabeceraUsuario(u) + '<div class="cq-posts" id="cq-posts"></div>';
+        cqDetalle.scrollTop = 0;
+        if (!desdeBusqueda && window.matchMedia('(max-width: 760px)').matches) {
+          cqDetalle.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+        }
+        cqCargarPosts(id);
+      };
+
+      // Eventos de la consulta
+      cqEnlace.addEventListener('click', (e) => {
+        e.preventDefault(); // el modal lo abre el sistema data-abrir; aquí solo cargamos los datos
+        cqCargarUsuarios();
+      });
+
+      cqLista.addEventListener('click', (e) => {
+        if (e.target.closest('#cq-reintentar-usuarios')) { cqCargarUsuarios(); return; }
+        const tarjeta = e.target.closest('.cq-usuario');
+        if (tarjeta) cqSeleccionar(Number(tarjeta.dataset.id));
+      });
+
+      cqDetalle.addEventListener('click', (e) => {
+        const reintentar = e.target.closest('[data-reintentar-posts]');
+        if (reintentar) cqCargarPosts(Number(reintentar.dataset.reintentarPosts));
+      });
+
+      cqBuscar.addEventListener('input', () => {
+        cqTexto = cqBuscar.value.trim();
+        if (!cqCargado) return;
+        cqRenderLista();
+
+        // Si escribió un número válido, lo lleva directo a ese usuario
+        if (/^#?\d+$/.test(cqTexto)) {
+          const id = Number(cqTexto.replace('#', ''));
+          if (cqUsuarios.some(u => u.id === id) && id !== cqSeleccionado) cqSeleccionar(id, true);
+        }
+      });
+
+      // --- Formulario de registro: correo, teléfono y edad ---
+      const formRegistro = document.getElementById('form-registro');
+      const modalRegistro = document.getElementById('modal-registro');
+      const modalConfirmacion = document.getElementById('modal-confirmacion');
+
+      formRegistro.addEventListener('submit', e => {
+        e.preventDefault();
+
+        // Con la validación nativa del form, si llegamos aquí los datos son válidos
+        const datos = {
+          correo: document.getElementById('reg-correo').value.trim(),
+          telefono: document.getElementById('reg-telefono').value.trim(),
+          edad: document.getElementById('reg-edad').value.trim()
+        };
+
+        // 1) Imprime los tres datos en la consola
+        console.log('Datos de registro:', datos);
+        console.log('Correo:', datos.correo, '| Teléfono:', datos.telefono, '| Edad:', datos.edad);
+
+        // 2) Refleja los datos en el modal de confirmación
+        document.getElementById('conf-correo').textContent = datos.correo;
+        document.getElementById('conf-telefono').textContent = datos.telefono;
+        document.getElementById('conf-edad').textContent = datos.edad + ' años';
+
+        // 3) Cambia del modal de formulario al de confirmación
+        cerrarModal(modalRegistro);
+        abrirModal(modalConfirmacion);
+      });
+    })();
+  </script>
+</body>
+</html>

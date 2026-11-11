@@ -1,0 +1,182 @@
+[
+  {
+    "id": 1,
+    "titulo": "La Casa de los Libros Soñados",
+    "autor": "J. A. Montenegro",
+    "genero": "Ficción literaria",
+    "paginas": 328,
+    "sinopsis": "Una librería aparece cada amanecer en una calle distinta y solo la encuentran quienes verdaderamente buscan una historia.",
+    "portada": "https://picsum.photos/seed/libro1/400/600",
+    "precio": 45000
+  },
+  {
+    "id": 2,
+    "titulo": "El Jardín de las Palabras",
+    "autor": "María López",
+    "genero": "Novela",
+    "paginas": 245,
+    "sinopsis": "Una profesora de literatura descubre que sus alumnos escriben cartas que nunca envían, y decide responderlas una por una.",
+    "portada": "https://picsum.photos/seed/libro2/400/600",
+    "precio": 38000
+  },
+  {
+    "id": 3,
+    "titulo": "Aventuras del Bosque Mágico",
+    "autor": "Carlos Ruiz",
+    "genero": "Infantil",
+    "paginas": 112,
+    "sinopsis": "Un conejito y un mapache emprenden un viaje para salvar su bosque de una sequía misteriosa.",
+    "portada": "https://picsum.photos/seed/libro3/400/600",
+    "precio": 28000
+  },
+  {
+    "id": 4,
+    "titulo": "Cálculo Integral Paso a Paso",
+    "autor": "Pedro Sánchez",
+    "genero": "Académico",
+    "paginas": 540,
+    "sinopsis": "Guía completa con ejercicios resueltos de derivadas, integrales y series de Taylor para estudiantes de universidad.",
+    "portada": "https://picsum.photos/seed/libro4/400/600",
+    "precio": 72000
+  },
+  {
+    "id": 5,
+    "titulo": "Historia de Colombia Contada",
+    "autor": "Ana María Torres",
+    "genero": "Historia",
+    "paginas": 410,
+    "sinopsis": "Un recorrido apasionante por los hitos que forjaron la nación colombiana desde la época prehispánica hasta hoy.",
+    "portada": "https://picsum.photos/seed/libro5/400/600",
+    "precio": 55000
+  },
+  {
+    "id": 6,
+    "titulo": "El Universo en tus Manos",
+    "autor": "Dr. Felipe Gómez",
+    "genero": "Ciencia",
+    "paginas": 298,
+    "sinopsis": "Una introducción amigable a la astronomía y la astrofísica para curiosos de todas las edades.",
+    "portada": "https://picsum.photos/seed/libro6/400/600",
+    "precio": 42000
+  },
+  {
+    "id": 7,
+    "titulo": "Cocina con Amor",
+    "autor": "Laura Restrepo",
+    "genero": "Cocina",
+    "paginas": 220,
+    "sinopsis": "50 recetas tradicionales colombianas explicadas paso a paso con fotos y trucos de abuela.",
+    "portada": "https://picsum.photos/seed/libro7/400/600",
+    "precio": 48000
+  },
+  {
+    "id": 8,
+    "titulo": "El Arte de la Guerra",
+    "autor": "Sun Tzu",
+    "genero": "Filosofía",
+    "paginas": 180,
+    "sinopsis": "Clásico de la estrategia militar y el liderazgo escrito hace más de 2000 años, vigente para los negocios modernos.",
+    "portada": "https://picsum.photos/seed/libro8/400/600",
+    "precio": 32000
+  },
+  {
+    "id": 9,
+    "titulo": "Misterio en la Casa Vieja",
+    "autor": "Daniela Vega",
+    "genero": "Misterio",
+    "paginas": 356,
+    "sinopsis": "Una familia se muda a una mansión abandonada y descubre que las paredes guardan un secreto de hace un siglo.",
+    "portada": "https://picsum.photos/seed/libro9/400/600",
+    "precio": 40000
+  },
+  {
+    "id": 10,
+    "titulo": "Cuentos de Antes de Dormir",
+    "autor": "Varios Autores",
+    "genero": "Infantil",
+    "paginas": 96,
+    "sinopsis": "Una recopilación de 15 cuentos cortos ilustrados para leer en familia antes de la hora de dormir.",
+    "portada": "https://picsum.photos/seed/libro10/400/600",
+    "precio": 25000
+  },
+  {
+    "id": 11,
+    "titulo": "Inteligencia Artificial para Todos",
+    "autor": "Roberto Díaz",
+    "genero": "Ciencia",
+    "paginas": 312,
+    "sinopsis": "Qué es el machine learning, cómo funcionan las redes neuronales y qué implicaciones tiene para la sociedad.",
+    "portada": "https://picsum.photos/seed/libro11/400/600",
+    "precio": 52000
+  },
+  {
+    "id": 12,
+    "titulo": "Amor en Tiempos de Copias",
+    "autor": "Sofía Martínez",
+    "genero": "Romance",
+    "paginas": 288,
+    "sinopsis": "Dos estudiantes se conocen en la fotocopiadora de la universidad y descubren que el amor también se imprime a doble cara.",
+    "portada": "https://picsum.photos/seed/libro12/400/600",
+    "precio": 36000
+  },
+  {
+    "id": 13,
+    "titulo": "Gramática Básica del Español",
+    "autor": "Real Academia",
+    "genero": "Académico",
+    "paginas": 480,
+    "sinopsis": "Referencia oficial para dominar ortografía, sintaxis y puntuación del idioma español.",
+    "portada": "https://picsum.photos/seed/libro13/400/600",
+    "precio": 60000
+  },
+  {
+    "id": 14,
+    "titulo": "La Sombra del Viento",
+    "autor": "Carlos Ruiz Zafón",
+    "genero": "Novela",
+    "paginas": 487,
+    "sinopsis": "Daniel Sempere descubre un libro maldito en el Cementerio de los Libros Olvidados que cambiará su vida para siempre.",
+    "portada": "https://picsum.photos/seed/libro14/400/600",
+    "precio": 49000
+  },
+  {
+    "id": 15,
+    "titulo": "El Principito",
+    "autor": "Antoine de Saint-Exupéry",
+    "genero": "Ficción literaria",
+    "paginas": 96,
+    "sinopsis": "Un aviador varía en el desierto del Sahara con un pequeño príncipe que le enseña lo esencial invisible a los ojos.",
+    "portada": "https://picsum.photos/seed/libro15/400/600",
+    "precio": 30000
+  },
+  {
+    "id": 16,
+    "titulo": "Yoga para Principiantes",
+    "autor": "Carmen Silva",
+    "genero": "Bienestar",
+    "paginas": 176,
+    "sinopsis": "Guía ilustrada con 30 posturas básicas, respiración y meditación para iniciar la práctica del yoga en casa.",
+    "portada": "https://picsum.photos/seed/libro16/400/600",
+    "precio": 35000
+  },
+  {
+    "id": 17,
+    "titulo": "Manual de Emprendimiento",
+    "autor": "Luis Fernando Mora",
+    "genero": "Negocios",
+    "paginas": 264,
+    "sinopsis": "Paso a paso para montar tu propio negocio: desde la idea hasta el plan de negocio y la captación de clientes.",
+    "portada": "https://picsum.photos/seed/libro17/400/600",
+    "precio": 50000
+  },
+  {
+    "id": 18,
+    "titulo": "Crónica de una Muerte Anunciada",
+    "autor": "Gabriel García Márquez",
+    "genero": "Novela",
+    "paginas": 128,
+    "sinopsis": "La reconstrucción de un crimen anunciado por todo un pueblo que nadie evita, novela corta del maestro del realismo mágico.",
+    "portada": "https://picsum.photos/seed/libro18/400/600",
+    "precio": 34000
+  }
+]

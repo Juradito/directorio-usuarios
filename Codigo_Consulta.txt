@@ -1,0 +1,493 @@
+﻿ FRAGMENTOS DE CÓDIGO como están en el index principal
+
+ >>> TAREA DE CONSULTA: CSS  |  líneas 779 a 1039
+
+
+    /* >>> TAREA: ESTILOS DE LA CONSULTA (clases cq-): modal, tarjetas y publicaciones <<< */
+    .menu a.menu-consulta {
+      background: var(--cafe-900);
+      color: var(--blanco-calido);
+      padding: .45rem 1.15rem;
+      border-radius: 999px;
+    }
+    .menu a.menu-consulta::after { display: none; }
+    .menu a.menu-consulta:hover { background: var(--dorado); color: var(--cafe-900); }
+
+    .modal-caja--ancha { width: min(980px, 100%); }
+
+    .cq-cabecera { text-align: center; padding-inline: 2rem; }
+    .cq-sobre {
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--dorado);
+      margin-bottom: .3rem;
+    }
+    .cq-sub { color: var(--texto-suave); font-size: .95rem; }
+
+    .cq-barra {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: .8rem 1.2rem;
+      margin: 1.3rem 0 1.1rem;
+    }
+    .cq-buscador { position: relative; flex: 1 1 280px; }
+    .cq-buscador-icono {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+    .cq-buscador input {
+      width: 100%;
+      padding: .8rem 1.1rem .8rem 2.8rem;
+      font-family: var(--fuente-texto);
+      font-size: .95rem;
+      color: var(--texto);
+      background: #fff;
+      border: 1.5px solid rgba(193, 154, 91, .45);
+      border-radius: 999px;
+      transition: border-color var(--transicion), box-shadow var(--transicion);
+    }
+    .cq-buscador input::placeholder { color: #b3a48c; }
+    .cq-buscador input:focus {
+      outline: none;
+      border-color: var(--dorado);
+      box-shadow: 0 0 0 4px rgba(193, 154, 91, .22);
+    }
+    .cq-total {
+      font-size: .85rem;
+      font-weight: 600;
+      color: var(--cafe-700);
+      background: var(--crema);
+      border: 1px solid rgba(193, 154, 91, .4);
+      padding: .45rem 1rem;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .cq-total:empty { display: none; }
+
+    .cq-cuerpo {
+      display: grid;
+      grid-template-columns: minmax(250px, 340px) 1fr;
+      gap: 1.2rem;
+      align-items: start;
+    }
+    .cq-lista {
+      display: grid;
+      gap: .7rem;
+      max-height: 52vh;
+      overflow: auto;
+      padding: .3rem .4rem .5rem .15rem;
+    }
+    .cq-detalle {
+      background: var(--crema);
+      border: 1px solid rgba(193, 154, 91, .3);
+      border-radius: 16px;
+      padding: 1.2rem;
+      min-height: 260px;
+      max-height: 52vh;
+      overflow: auto;
+    }
+
+    .cq-usuario {
+      display: flex;
+      align-items: center;
+      gap: .85rem;
+      width: 100%;
+      text-align: left;
+      font-family: var(--fuente-texto);
+      padding: .75rem .9rem;
+      background: var(--blanco-calido);
+      border: 1.5px solid rgba(193, 154, 91, .3);
+      border-radius: 14px;
+      box-shadow: var(--sombra-suave);
+      cursor: pointer;
+      transition: transform var(--transicion), box-shadow var(--transicion), border-color var(--transicion);
+    }
+    .cq-usuario:hover {
+      transform: translateY(-2px);
+      border-color: rgba(193, 154, 91, .65);
+      box-shadow: var(--sombra-fuerte);
+    }
+    .cq-usuario.activo {
+      background: #fff;
+      border-color: var(--verde);
+      box-shadow: 0 0 0 3px rgba(47, 74, 60, .15);
+    }
+    .cq-usuario-info { display: flex; flex-direction: column; min-width: 0; }
+    .cq-numero {
+      display: inline-block;
+      font-family: var(--fuente-texto);
+      font-size: .72rem;
+      font-weight: 700;
+      color: var(--blanco-calido);
+      background: var(--cafe-700);
+      padding: .05rem .5rem;
+      margin-right: .3rem;
+      border-radius: 999px;
+      vertical-align: middle;
+    }
+    .cq-usuario-nombre {
+      font-family: var(--fuente-titulos);
+      font-weight: 700;
+      color: var(--cafe-800);
+      line-height: 1.25;
+    }
+    .cq-usuario-dato {
+      font-size: .8rem;
+      color: var(--texto-suave);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .cq-avatar {
+      flex: none;
+      display: grid;
+      place-items: center;
+      width: 52px;
+      height: 52px;
+      font-size: 1.7rem;
+      line-height: 1;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, .85);
+      box-shadow: 0 6px 14px rgba(36, 24, 17, .18);
+    }
+    .cq-avatar--grande { width: 84px; height: 84px; font-size: 2.8rem; }
+    .cq-c0 { background: linear-gradient(135deg, #F3D9A4, #E2C288); }
+    .cq-c1 { background: linear-gradient(135deg, #CFE3D4, #9DC1AA); }
+    .cq-c2 { background: linear-gradient(135deg, #F1C9B8, #E3A58D); }
+    .cq-c3 { background: linear-gradient(135deg, #D8D0EC, #B7A9DB); }
+    .cq-c4 { background: linear-gradient(135deg, #CBE0EE, #9CC2DC); }
+
+    .cq-perfil {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.1rem;
+      padding-bottom: 1.1rem;
+      margin-bottom: 1.1rem;
+      border-bottom: 1px dashed rgba(193, 154, 91, .55);
+    }
+    .cq-perfil-info { min-width: 0; }
+    .cq-perfil-nombre {
+      font-family: var(--fuente-titulos);
+      font-size: 1.4rem;
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--cafe-900);
+    }
+    .cq-perfil-user {
+      font-size: .9rem;
+      font-weight: 600;
+      color: var(--dorado);
+      margin-bottom: .6rem;
+    }
+    .cq-chips { display: flex; flex-wrap: wrap; gap: .45rem; }
+    .cq-chip {
+      font-size: .78rem;
+      font-weight: 600;
+      color: var(--cafe-700);
+      background: var(--blanco-calido);
+      border: 1px solid rgba(193, 154, 91, .4);
+      padding: .3rem .75rem;
+      border-radius: 999px;
+      overflow-wrap: anywhere;
+    }
+    .cq-frase {
+      margin-top: .7rem;
+      font-family: var(--fuente-titulos);
+      font-style: italic;
+      font-size: .92rem;
+      color: var(--texto-suave);
+    }
+
+    .cq-posts-titulo {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-family: var(--fuente-titulos);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--cafe-800);
+      margin-bottom: .8rem;
+    }
+    .cq-badge {
+      font-family: var(--fuente-texto);
+      font-size: .75rem;
+      font-weight: 600;
+      color: var(--blanco-calido);
+      background: var(--verde);
+      padding: .1rem .65rem;
+      border-radius: 999px;
+    }
+    .cq-post {
+      background: var(--blanco-calido);
+      border: 1px solid rgba(193, 154, 91, .3);
+      border-left: 4px solid var(--dorado);
+      border-radius: 12px;
+      padding: .85rem 1rem;
+      margin-bottom: .7rem;
+    }
+    .cq-post-titulo {
+      font-family: var(--fuente-titulos);
+      font-size: 1rem;
+      line-height: 1.3;
+      color: var(--cafe-900);
+      margin-bottom: .35rem;
+    }
+    .cq-post-titulo::first-letter { text-transform: uppercase; }
+    .cq-post-cuerpo {
+      font-size: .9rem;
+      line-height: 1.55;
+      color: var(--texto-suave);
+      white-space: pre-line;
+    }
+
+    .cq-estado, .cq-vacio, .cq-inicial {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: var(--texto-suave);
+    }
+    .cq-estado--error { color: #b04a2f; }
+    .cq-estado .btn { margin-top: 1rem; }
+    .cq-inicial { padding-top: 3.5rem; }
+    .cq-inicial span { display: block; font-size: 2.8rem; margin-bottom: .5rem; }
+
+    @media (max-width: 760px) {
+      .cq-cuerpo { grid-template-columns: 1fr; }
+      .cq-lista { max-height: 36vh; }
+      .cq-detalle { max-height: none; }
+      .cq-perfil { flex-direction: column; align-items: center; text-align: center; }
+      .cq-chips { justify-content: center; }
+    }
+
+
+==========================================================================
+ >>> TAREA DE CONSULTA: HTML BOTÓN DEL MENÚ  |  línea 1494
+
+
+        <li><a href="#consulta" id="enlace-consulta" class="menu-consulta" data-abrir="#modal-consulta">🔎 Consulta</a></li> <!-- >>> TAREA: botón "Consulta" del menú (abre el modal) -->
+
+
+
+ >>> TAREA DE CONSULTA: HTML MODAL  |  líneas 1808 a 1837
+
+
+
+  <!-- >>> TAREA: MODAL "CONSULTA" (usuarios y publicaciones) <<<   -->
+
+  <div class="modal" id="modal-consulta" role="dialog" aria-modal="true" aria-labelledby="modal-consulta-titulo" aria-hidden="true">
+    <div class="modal-fondo" data-cerrar></div>
+    <div class="modal-caja modal-caja--ancha">
+      <button class="modal-cerrar" type="button" data-cerrar aria-label="Cerrar ventana">×</button>
+
+      <div class="cq-cabecera">
+        <div class="cq-sobre">Comunidad de lectores</div>
+        <h3 id="modal-consulta-titulo">📚 Consulta de usuarios</h3>
+        <div class="cq-sub">Busca a un lector y descubre sus publicaciones.</div>
+      </div>
+
+      <div class="cq-barra">
+        <div class="cq-buscador">
+          <span class="cq-buscador-icono" aria-hidden="true">🔍</span>
+          <input type="search" id="cq-buscar" placeholder="Buscar por nombre, correo, empresa o número (ej. 3)..." autocomplete="off" aria-label="Buscar usuarios">
+        </div>
+        <div class="cq-total" id="cq-contador" aria-live="polite"></div>
+      </div>
+
+      <div class="cq-cuerpo">
+        <div class="cq-lista" id="cq-lista"></div>
+        <div class="cq-detalle" id="cq-detalle">
+          <div class="cq-inicial"><span>📚</span>Selecciona un usuario de la lista para ver sus publicaciones.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+==========================================================================
+ >>> TAREA DE CONSULTA: JAVASCRIPT  |  líneas 2152 a 2329
+
+
+   
+      // >>> TAREA: CONSULTA DE USUARIOS Y PUBLICACIONES (FETCH) <<<
+      // API: JSONPlaceholder -> /users  y  /posts?userId=ID
+
+      const API_URL = 'https://jsonplaceholder.typicode.com';
+      const EMOJIS_USUARIO = ['🧑‍🎨', '👩‍🚀', '🧑‍🍳', '👨‍🔬', '👩‍💻', '🧑‍🏫', '👨‍🌾', '👩‍⚕️', '🧑‍🚒', '👨‍🎤'];
+
+      const cqEnlace = document.getElementById('enlace-consulta');
+      const cqLista = document.getElementById('cq-lista');
+      const cqBuscar = document.getElementById('cq-buscar');
+      const cqContador = document.getElementById('cq-contador');
+      const cqDetalle = document.getElementById('cq-detalle');
+
+      let cqUsuarios = [];
+      let cqTexto = '';
+      let cqSeleccionado = null;
+      let cqCargado = false;
+      let cqCargando = false;
+      let cqControlador = null; // AbortController de la consulta de publicaciones en curso
+
+      const normalizar = (s) => String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+      const cqAvatar = (u, grande) =>
+        `<span class="cq-avatar cq-c${(u.id - 1) % 5}${grande ? ' cq-avatar--grande' : ''}" aria-hidden="true">${EMOJIS_USUARIO[(u.id - 1) % EMOJIS_USUARIO.length]}</span>`;
+
+      const cqRenderLista = () => {
+        const t = normalizar(cqTexto);
+        // Si lo escrito es solo un número (ej. "3" o "#3"), se busca por número de usuario (id)
+        const porNumero = /^#?\d+$/.test(cqTexto);
+        const idBuscado = porNumero ? Number(cqTexto.replace('#', '')) : null;
+        const filtrados = cqUsuarios.filter(u => {
+          if (!t) return true;
+          if (porNumero) return u.id === idBuscado;
+          return normalizar([u.name, u.username, u.email, u.company?.name ?? ''].join(' ')).includes(t);
+        });
+
+        cqContador.textContent = `👥 Mostrando ${filtrados.length} de ${cqUsuarios.length} usuarios`;
+
+        if (filtrados.length === 0) {
+          cqLista.innerHTML = porNumero
+            ? `<div class="cq-vacio">🔎 No existe el usuario #${idBuscado}. Prueba con un número del 1 al ${cqUsuarios.length}.</div>`
+            : `<div class="cq-vacio">🔎 No hay usuarios que coincidan con “${escaparHTML(cqTexto)}”.</div>`;
+          return;
+        }
+
+        cqLista.innerHTML = filtrados.map(u => `
+          <button type="button" class="cq-usuario${u.id === cqSeleccionado ? ' activo' : ''}" data-id="${u.id}" aria-pressed="${u.id === cqSeleccionado}">
+            ${cqAvatar(u)}
+            <span class="cq-usuario-info">
+              <span class="cq-usuario-nombre"><span class="cq-numero">#${u.id}</span>${escaparHTML(u.name)}</span>
+              <span class="cq-usuario-dato">✉️ ${escaparHTML(u.email)}</span>
+              <span class="cq-usuario-dato">🏢 ${escaparHTML(u.company?.name ?? '—')}</span>
+            </span>
+          </button>`).join('');
+      };
+
+      // --------------------------------------------------------------
+      // >>> CONSULTA 1: GET /users  (lista de usuarios)
+    
+      const cqCargarUsuarios = async () => {
+        if (cqCargado || cqCargando) return;
+        cqCargando = true;
+        cqContador.textContent = '';
+        cqLista.innerHTML = '<div class="cq-estado">⏳ Cargando usuarios...</div>';
+        try {
+          const res = await fetch(`${API_URL}/users`);
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          const data = await res.json();
+          if (!Array.isArray(data)) throw new Error('Formato inválido');
+          cqUsuarios = data;
+          cqCargado = true;
+          cqRenderLista();
+        } catch (err) {
+          console.error('Error cargando usuarios:', err);
+          cqLista.innerHTML = `<div class="cq-estado cq-estado--error">⚠️ No se pudieron cargar los usuarios. Revisa tu conexión e inténtalo de nuevo.<br><button type="button" class="btn btn-dorado" id="cq-reintentar-usuarios">Reintentar</button></div>`;
+        } finally {
+          cqCargando = false;
+        }
+      };
+
+      const cqCabeceraUsuario = (u) => `
+        <div class="cq-perfil">
+          ${cqAvatar(u, true)}
+          <div class="cq-perfil-info">
+            <div class="cq-perfil-nombre">${escaparHTML(u.name)}</div>
+            <div class="cq-perfil-user">Usuario #${u.id} · @${escaparHTML(u.username)}</div>
+            <div class="cq-chips">
+              <span class="cq-chip">✉️ ${escaparHTML(u.email)}</span>
+              <span class="cq-chip">🏢 ${escaparHTML(u.company?.name ?? '—')}</span>
+              <span class="cq-chip">📞 ${escaparHTML(u.phone ?? '—')}</span>
+              <span class="cq-chip">🌐 ${escaparHTML(u.website ?? '—')}</span>
+              <span class="cq-chip">📍 ${escaparHTML(u.address?.city ?? '—')}</span>
+            </div>
+            <div class="cq-frase">“${escaparHTML(u.company?.catchPhrase ?? '')}”</div>
+          </div>
+        </div>`;
+
+      // --------------------------------------------------------------
+      // >>> CONSULTA 2: GET /posts?userId=ID  (publicaciones del usuario)
+      // El ID se reemplaza por el del usuario seleccionado.
+     
+      const cqCargarPosts = async (id) => {
+        if (cqControlador) cqControlador.abort(); // cancela la consulta anterior si cambian de usuario
+        cqControlador = new AbortController();
+        const { signal } = cqControlador;
+        const zona = document.getElementById('cq-posts');
+        zona.innerHTML = '<div class="cq-estado">⏳ Cargando publicaciones...</div>';
+
+        try {
+          const res = await fetch(`${API_URL}/posts?userId=${encodeURIComponent(id)}`, { signal });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          const posts = await res.json();
+          if (!Array.isArray(posts)) throw new Error('Formato inválido');
+
+          if (posts.length === 0) {
+            zona.innerHTML = '<div class="cq-vacio">📭 Este usuario aún no tiene publicaciones.</div>';
+            return;
+          }
+          zona.innerHTML = `<div class="cq-posts-titulo">📝 Publicaciones <span class="cq-badge">${posts.length}</span></div>` +
+            posts.map(p => `
+              <article class="cq-post">
+                <h4 class="cq-post-titulo">📌 ${escaparHTML(p.title)}</h4>
+                <div class="cq-post-cuerpo">${escaparHTML(p.body)}</div>
+              </article>`).join('');
+        } catch (err) {
+          if (err.name === 'AbortError') return; // fue cancelada a propósito, no es un error
+          console.error('Error cargando publicaciones:', err);
+          zona.innerHTML = `<div class="cq-estado cq-estado--error">⚠️ No se pudieron cargar las publicaciones. Revisa tu conexión e inténtalo de nuevo.<br><button type="button" class="btn btn-dorado" data-reintentar-posts="${id}">Reintentar</button></div>`;
+        }
+      };
+
+      const cqSeleccionar = (id, desdeBusqueda) => {
+        const u = cqUsuarios.find(x => x.id === id);
+        if (!u) return;
+        cqSeleccionado = id;
+
+        cqLista.querySelectorAll('.cq-usuario').forEach(b => {
+          const activo = Number(b.dataset.id) === id;
+          b.classList.toggle('activo', activo);
+          b.setAttribute('aria-pressed', String(activo));
+        });
+
+        cqDetalle.innerHTML = cqCabeceraUsuario(u) + '<div class="cq-posts" id="cq-posts"></div>';
+        cqDetalle.scrollTop = 0;
+        if (!desdeBusqueda && window.matchMedia('(max-width: 760px)').matches) {
+          cqDetalle.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+        }
+        cqCargarPosts(id);
+      };
+
+      // Eventos de la consulta
+      cqEnlace.addEventListener('click', (e) => {
+        e.preventDefault(); // el modal lo abre el sistema data-abrir; aquí solo cargamos los datos
+        cqCargarUsuarios();
+      });
+
+      cqLista.addEventListener('click', (e) => {
+        if (e.target.closest('#cq-reintentar-usuarios')) { cqCargarUsuarios(); return; }
+        const tarjeta = e.target.closest('.cq-usuario');
+        if (tarjeta) cqSeleccionar(Number(tarjeta.dataset.id));
+      });
+
+      cqDetalle.addEventListener('click', (e) => {
+        const reintentar = e.target.closest('[data-reintentar-posts]');
+        if (reintentar) cqCargarPosts(Number(reintentar.dataset.reintentarPosts));
+      });
+
+      cqBuscar.addEventListener('input', () => {
+        cqTexto = cqBuscar.value.trim();
+        if (!cqCargado) return;
+        cqRenderLista();
+
+        // Si escribió un número válido, lo lleva directo a ese usuario
+        if (/^#?\d+$/.test(cqTexto)) {
+          const id = Number(cqTexto.replace('#', ''));
+          if (cqUsuarios.some(u => u.id === id) && id !== cqSeleccionado) cqSeleccionar(id, true);
+        }
+      });
